@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>పోటీ పరీక్షల స్టడీ & మాక్ టెస్ట్ పోర్టల్</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Noto Sans Telugu', sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 50px; }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white; padding: 26px 16px; text-align: center;
+      border-bottom: 4px solid #38bdf8;
+    }
+    header h1 { font-size: 1.45rem; font-weight: 800; color: #38bdf8; }
+    header p { font-size: 0.9rem; color: #cbd5e1; margin-top: 6px; }
+
+    .container { max-width: 900px; margin: 22px auto; padding: 0 16px; }
+    .section-title { font-size: 1.08rem; font-weight: 700; color: #1e293b; margin-bottom: 14px; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .cat-card {
+      background: var(--card); border-radius: 14px; padding: 20px;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+      cursor: pointer; transition: all 0.2s ease;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .cat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .cat-card.active { border-color: var(--primary); background: #f0f9ff; }
+
+    .cat-icon {
+      width: 54px; height: 54px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem; flex-shrink: 0;
+    }
+    .cat-info h3 { font-size: 1.08rem; font-weight: 700; color: #0f172a; }
+    .cat-info p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+    .details-panel {
+      background: var(--card); border-radius: 14px; padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .panel-header {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px;
+    }
+    .panel-header h2 { font-size: 1.15rem; color: var(--primary-dark); }
+    .close-btn {
+      background: #f1f5f9; border: none; padding: 6px 12px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 700; color: #475569; cursor: pointer;
+    }
+
+    .sub-tabs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      background: #f1f5f9; padding: 6px; border-radius: 10px; margin-bottom: 18px;
+    }
+    .sub-tab {
+      padding: 10px 6px; text-align: center; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      color: #475569; transition: 0.2s; border: none; background: transparent;
+    }
+    .sub-tab.active {
+      background: white; color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    .link-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px;
+      margin-bottom: 10px; text-decoration: none; color: var(--text);
+      background: #ffffff; transition: 0.15s; gap: 12px;
+    }
+    .link-item:hover { border-color: var(--primary); background: #f8fafc; }
+    .link-title { font-weight: 600; font-size: 0.96rem; }
+    .link-tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      padding: 3px 8px; border-radius: 6px; margin-top: 4px;
+    }
+    .tag-free { background: #dcfce7; color: #166534; }
+    .tag-paid { background: #fef3c7; color: #92400e; }
+    .tag-pdf { background: #e0f2fe; color: #075985; }
+
+    .open-pill {
+      background: var(--primary); color: white; padding: 7px 14px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 700; white-space: nowrap;
+    }
+    .empty-msg {
+      text-align: center; padding: 24px; color: var(--muted); font-size: 0.92rem;
+      background: #f8fafc; border-radius: 10px; border: 1px dashed #cbd5e1;
+    }
+
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .sub-tab { font-size: 0.82rem; padding: 9px 4px; }
+      .link-item { flex-direction: column; align-items: flex-start; }
+      .open-pill { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 id="portalBrandTitle">🎓 SmartStudyHub పోటీ పరీక్షల పోర్టల్</h1>
+  <p>సిలబస్ • పాత ప్రశ్నపత్రాలు • ఆన్‌లైన్ మాక్ టెస్టులు</p>
+</header>
+
+<div class="container">
+  <div class="section-title">📌 మీ పరీక్ష విభాగాన్ని ఎంచుకోండి:</div>
+
+  <div class="cards-grid" id="categoryCards"></div>
+
+  <div id="detailsPanel" class="details-panel" style="display: none;">
+    <div class="panel-header">
+      <h2 id="selectedCatTitle"></h2>
+      <button class="close-btn" onclick="closePanel()">✕ మూసివేయండి</button>
+    </div>
+
+    <div class="sub-tabs">
+      <button class="sub-tab active" id="tab-syllabus" onclick="switchTab('syllabus')">📚 సిలబస్</button>
+      <button class="sub-tab" id="tab-oldpapers" onclick="switchTab('oldpapers')">📄 ఓల్డ్ పేపర్స్</button>
+      <button class="sub-tab" id="tab-tests" onclick="switchTab('tests')">✍️ ప్రాక్టీస్ టెస్ట్స్</button>
+    </div>
+
+    <div id="linksContainer"></div>
+  </div>
+</div>
+
+<script>
+  // మీ బ్రాండ్ పేరు ఇక్కడ మార్చుకోండి:
+  const PORTAL_NAME = "🎓 SmartStudyHub పోటీ పరీక్షల పోర్టల్";
+  document.getElementById('portalBrandTitle').innerText = PORTAL_NAME;
+
+  const portalData = [
+    {
+      id: "teaching",
+      title: "టీచింగ్ జాబ్స్ (Teaching)",
+      subtitle: "TG TET, DSC (SGT / SA), Gurukul",
+      icon: "👩‍🏫",
+      iconBg: "#dbeafe",
+      syllabus: [
+        { name: "TG DSC & TET పూర్తి సిలబస్ (తెలుగు మీడియం)", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      oldpapers: [
+        { name: "TG TET Previous Papers & Official Key", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      tests: [
+        { name: "DSC SGT Grand Test - 1", url: "#", tag: "Coming Soon", tagClass: "tag-free" }
+      ]
+    },
+    {
+      id: "police",
+      title: "పోలీస్ జాబ్స్ (Police)",
+      subtitle: "TSLPRB SI, Constable, Prelims & Mains",
+      icon: "👮‍♂️",
+      iconBg: "#dcfce7",
+      syllabus: [
+        { name: "TS SI & PC ప్రిలిమ్స్ & మెయిన్స్ పూర్తి సిలబస్", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      oldpapers: [
+        { name: "TS SI Mains 2023 General Studies Official Paper", url: "https://fillandprint.github.io/-ts-si-mains-gs-2023/", tag: "Online + PDF", tagClass: "tag-free" }
+      ],
+      tests: [
+        { name: "TS SI Mains 2023 - GS Full Grand Test (200 ప్రశ్నలు)", url: "https://fillandprint.github.io/-ts-si-mains-gs-2023/", tag: "₹5 Live Test", tagClass: "tag-paid" }
+      ]
+    },
+    {
+      id: "groups",
+      title: "గ్రూప్స్ (Groups)",
+      subtitle: "TGPSC Group-1, Group-2, Group-3, Group-4",
+      icon: "🏛️",
+      iconBg: "#fef3c7",
+      syllabus: [
+        { name: "TGPSC Group-2 & Group-3 తాజా సిలబస్", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      oldpapers: [
+        { name: "TGPSC Group-4 Paper-1 & Paper-2 Keys", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      tests: [
+        { name: "తెలంగాణ చరిత్ర & ఉద్యమం ప్రాక్టీస్ టెస్ట్", url: "#", tag: "Coming Soon", tagClass: "tag-free" }
+      ]
+    },
+    {
+      id: "railway",
+      title: "రైల్వే జాబ్స్ (Railway)",
+      subtitle: "RRB NTPC, Group-D, ALP, RPF",
+      icon: "🚆",
+      iconBg: "#f3e8ff",
+      syllabus: [
+        { name: "RRB NTPC & Group-D పరీక్షా విధానం & సిలబస్", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      oldpapers: [
+        { name: "RRB Group-D Previous Shift Papers (Telugu)", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      tests: [
+        { name: "General Science ప్రాక్టీస్ టెస్ట్", url: "#", tag: "Coming Soon", tagClass: "tag-free" }
+      ]
+    },
+    {
+      id: "bank",
+      title: "బ్యాంక్ జాబ్స్ (Bank Jobs)",
+      subtitle: "IBPS PO/Clerk, SBI, RRB Gramin Bank",
+      icon: "🏦",
+      iconBg: "#fee2e2",
+      syllabus: [
+        { name: "IBPS & SBI Prelims + Mains పూర్తి సిలబస్", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      oldpapers: [
+        { name: "IBPS RRB Clerk Previous Question Papers", url: "#", tag: "PDF", tagClass: "tag-pdf" }
+      ],
+      tests: [
+        { name: "Quantitative Aptitude & Reasoning Speed Test", url: "#", tag: "Coming Soon", tagClass: "tag-free" }
+      ]
+    }
+  ];
+
+  let selectedCategory = null;
+  let activeTab = 'syllabus';
+
+  function renderCards() {
+    const grid = document.getElementById('categoryCards');
+    grid.innerHTML = portalData.map(cat => `
+      <div class="cat-card ${selectedCategory && selectedCategory.id === cat.id ? 'active' : ''}" onclick="selectCategory('${cat.id}')">
+        <div class="cat-icon" style="background: ${cat.iconBg};">${cat.icon}</div>
+        <div class="cat-info">
+          <h3>${cat.title}</h3>
+          <p>${cat.subtitle}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function selectCategory(catId) {
+    selectedCategory = portalData.find(c => c.id === catId);
+    activeTab = 'syllabus';
+    renderCards();
+    const panel = document.getElementById('detailsPanel');
+    panel.style.display = 'block';
+    document.getElementById('selectedCatTitle').innerHTML = `${selectedCategory.icon} ${selectedCategory.title}`;
+    updateTabUI();
+    renderLinks();
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function closePanel() {
+    selectedCategory = null;
+    document.getElementById('detailsPanel').style.display = 'none';
+    renderCards();
+  }
+
+  function switchTab(tabName) {
+    activeTab = tabName;
+    updateTabUI();
+    renderLinks();
+  }
+
+  function updateTabUI() {
+    ['syllabus', 'oldpapers', 'tests'].forEach(t => {
+      const btn = document.getElementById(`tab-${t}`);
+      if (t === activeTab) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+  }
+
+  function renderLinks() {
+    if (!selectedCategory) return;
+    const items = selectedCategory[activeTab] || [];
+    const container = document.getElementById('linksContainer');
+
+    if (items.length === 0) {
+      container.innerHTML = `<div class="empty-msg">ఈ విభాగంలో త్వరలోనే లింక్స్ జతచేయబడతాయి.</div>`;
+      return;
+    }
+
+    container.innerHTML = items.map(item => `
+      <a class="link-item" href="${item.url}" ${item.url !== '#' ? 'target="_blank"' : 'onclick="alert(\'ఈ లింక్ త్వరలోనే అప్‌డేట్ చేయబడుతుంది!\'); return false;"'}>
+        <div>
+          <div class="link-title">${item.name}</div>
+          <span class="link-tag ${item.tagClass || 'tag-pdf'}">${item.tag || 'Link'}</span>
+        </div>
+        <span class="open-pill">ఓపెన్ చేయండి →</span>
+      </a>
+    `).join('');
+  }
+
+  renderCards();
+</script>
+
+</body>
+</html>
