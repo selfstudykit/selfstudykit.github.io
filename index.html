@@ -200,7 +200,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
           <strong id="qNumberLabel" style="color:var(--primary-dark);">Question 1 of 200</strong>
           <div>
-            <span id="saveIndicator" style="font-size:0.75rem; color:#16a34a; font-weight:700; margin-right:8px;">✅ Saved</span>
+            <span id="saveIndicator" style="font-size:0.75rem; color:#16a34a; font-weight:700; margin-right:8px;">✅ Auto-Saved</span>
             <span id="qSectionLabel" style="font-size:0.8rem; font-weight:700; background:#f1f5f9; padding:2px 10px; border-radius:6px;">Arithmetic</span>
           </div>
         </div>
@@ -430,57 +430,49 @@
 <script src="questions.js"></script>
 <script>
   const RAZORPAY_KEY_ID = "rzp_live_YOUR_KEY_HERE";
-  const STORAGE_KEY = "TSSI_PAPER1_SECURE_B2B_V5";
-  const ACTIVE_SESSION_KEY = "TSSI_ACTIVE_STUDENT_SESSION_V5";
+  const DB_KEY = "TSSI_P1_DB_FINAL";
+  const SESSION_KEY = "TSSI_P1_ACTIVE_SESSION";
 
-  // Safe dual-layer storage (localStorage + window.name fallback for file:// / refresh)
-  function safeGetItem(key) {
+  // Dual storage helper (localStorage + window.name for mobile local/refresh persistence)
+  function readStore(key) {
     try {
-      const val = localStorage.getItem(key);
-      if (val) return val;
+      const v = localStorage.getItem(key);
+      if (v) return v;
     } catch (e) {}
     try {
-      if (window.name && window.name.startsWith("B2B_STORE:")) {
-        const bag = JSON.parse(window.name.slice(10));
-        return bag[key] || null;
+      if (window.name && window.name.indexOf("TSSI_BAG:") === 0) {
+        const obj = JSON.parse(window.name.substring(9));
+        if (obj && obj[key]) return obj[key];
       }
     } catch (e) {}
     return null;
   }
 
-  function safeSetItem(key, value) {
+  function writeStore(key, val) {
+    try { localStorage.setItem(key, val); } catch (e) {}
     try {
-      localStorage.setItem(key, value);
-    } catch (e) {}
-    try {
-      let bag = {};
-      if (window.name && window.name.startsWith("B2B_STORE:")) {
-        bag = JSON.parse(window.name.slice(10));
+      let obj = {};
+      if (window.name && window.name.indexOf("TSSI_BAG:") === 0) {
+        obj = JSON.parse(window.name.substring(9)) || {};
       }
-      bag[key] = value;
-      window.name = "B2B_STORE:" + JSON.stringify(bag);
+      obj[key] = val;
+      window.name = "TSSI_BAG:" + JSON.stringify(obj);
     } catch (e) {}
   }
 
-  function safeRemoveItem(key) {
+  function clearStore(key) {
+    try { localStorage.removeItem(key); } catch (e) {}
     try {
-      localStorage.removeItem(key);
-    } catch (e) {}
-    try {
-      if (window.name && window.name.startsWith("B2B_STORE:")) {
-        const bag = JSON.parse(window.name.slice(10));
-        delete bag[key];
-        window.name = "B2B_STORE:" + JSON.stringify(bag);
+      if (window.name && window.name.indexOf("TSSI_BAG:") === 0) {
+        const obj = JSON.parse(window.name.substring(9)) || {};
+        delete obj[key];
+        window.name = "TSSI_BAG:" + JSON.stringify(obj);
       }
     } catch (e) {}
-  }
-
-  function getTotalQ() {
-    return (typeof QUESTIONS !== 'undefined' && Array.isArray(QUESTIONS)) ? QUESTIONS.length : 200;
   }
 
   function loadDB() {
-    const raw = safeGetItem(STORAGE_KEY);
+    const raw = readStore(DB_KEY);
     if (raw) {
       try { return JSON.parse(raw); } catch (e) {}
     }
@@ -495,21 +487,21 @@
           directorPin: "1234",
           rollStart: 101,
           rollEnd: 200,
-          discount: 0,
-          feePaid: false,
-          paymentId: "",
+          discount: 100,
+          feePaid: true,
+          paymentId: "FREE_100_DISC",
           adminAllowed: true,
-          examLive: false
+          examLive: true
         }
       ],
       students: []
     };
-    safeSetItem(STORAGE_KEY, JSON.stringify(seed));
+    writeStore(DB_KEY, JSON.stringify(seed));
     return seed;
   }
 
   function saveDB(db) {
-    safeSetItem(STORAGE_KEY, JSON.stringify(db));
+    writeStore(DB_KEY, JSON.stringify(db));
   }
 
   function generatePin4() {
@@ -517,7 +509,7 @@
   }
 
   function switchRole(role) {
-    if (safeGetItem(ACTIVE_SESSION_KEY)) return;
+    if (readStore(SESSION_KEY)) return;
     ['student', 'director', 'admin'].forEach(r => {
       document.getElementById(`view-${r}`).style.display = (r === role) ? 'block' : 'none';
       document.getElementById(`tab-${r}`).classList.toggle('active', r === role);
@@ -525,18 +517,16 @@
   }
 
   // =========================================================
-  // 3. SUPER ADMIN FUNCTIONS
+  // 3. SUPER ADMIN
   // =========================================================
   function adminLogin() {
-    const pass = document.getElementById('adminPass').value.trim();
-    if (pass !== "admin2026") {
+    if (document.getElementById('adminPass').value.trim() !== "admin2026") {
       alert("❌ తప్పు Super Admin పాస్‌వర్డ్!");
       return;
     }
     document.getElementById('adminLoginCard').style.display = 'none';
     document.getElementById('adminDashboard').style.display = 'block';
-    const db = loadDB();
-    document.getElementById('globalExamPriceInput').value = db.examBasePrice;
+    document.getElementById('globalExamPriceInput').value = loadDB().examBasePrice;
     renderAdminTable();
   }
 
@@ -599,7 +589,7 @@
   }
 
   function updateDiscount(instId) {
-    const val = prompt("కొత్త డిస్కౌంట్ శాతం (0 - 100) ఎంటర్ చేయండి (100 ఇస్తే ఉచితంగా లైవ్ అవుతుంది):");
+    const val = prompt("కొత్త డిస్కౌంట్ శాతం (0 - 100) ఎంటర్ చేయండి:");
     if (val === null) return;
     const disc = Math.max(0, Math.min(100, parseInt(val) || 0));
     const db = loadDB();
@@ -616,7 +606,7 @@
   }
 
   function deleteInstitute(instId) {
-    if (!confirm("⚠️ ఈ కోచింగ్ సెంటర్ మరియు డైరెక్టర్ ఖాతాను పూర్తిగా తొలగించాలా?")) return;
+    if (!confirm("⚠️ ఈ కోచింగ్ సెంటర్ ఖాతాను పూర్తిగా తొలగించాలా?")) return;
     const db = loadDB();
     db.institutes = db.institutes.filter(i => i.id !== instId);
     db.students = db.students.filter(s => s.instId !== instId);
@@ -639,7 +629,6 @@
             <span class="status-pill ${inst.feePaid || payable === 0 ? 'st-active' : 'st-hold'}">
               ${payable === 0 ? 'FREE (100%)' : (inst.feePaid ? 'PAID' : 'UNPAID')}
             </span>
-            ${inst.paymentId ? `<br><small style="font-size:0.7rem;">${inst.paymentId}</small>` : ''}
           </td>
           <td>
             <span class="status-pill ${inst.adminAllowed ? 'st-active' : 'st-hold'}">
@@ -748,14 +737,15 @@
   }
 
   function allowReExam(roll) {
-    if (!confirm(`Roll No: ${roll} విద్యార్థికి మళ్ళీ పరీక్ష (Re-Exam) రాసే అవకాశం ఇవ్వాలా?`)) return;
+    const rollStr = String(roll).trim();
+    if (!confirm(`Roll No: ${rollStr} విద్యార్థికి మళ్ళీ పరీక్ష (Re-Exam) రాసే అవకాశం ఇవ్వాలా?`)) return;
     const db = loadDB();
-    const stu = db.students.find(s => s.instId === currentDirectorInstId && s.roll === roll);
+    const stu = db.students.find(s => s.instId === currentDirectorInstId && String(s.roll).trim() === rollStr);
     if (stu) {
       stu.status = 'REEXAM_ALLOWED';
-      stu.savedAnswers = new Array(getTotalQ()).fill(null);
+      stu.answersMap = {};
       stu.examEndTimeMs = null;
-      stu.lastQuestionIdx = 0;
+      stu.lastIdx = 0;
       delete stu.arith;
       delete stu.reas;
       delete stu.total;
@@ -765,14 +755,15 @@
   }
 
   function resetStudentPin(roll) {
+    const rollStr = String(roll).trim();
     const newPin = generatePin4();
     const db = loadDB();
-    const stu = db.students.find(s => s.instId === currentDirectorInstId && s.roll === roll);
+    const stu = db.students.find(s => s.instId === currentDirectorInstId && String(s.roll).trim() === rollStr);
     if (stu) {
       stu.personalPin = newPin;
       saveDB(db);
       renderDirectorDashboard();
-      alert(`🔑 Roll No: ${roll} (${stu.name}) యొక్క కొత్త Personal PIN: ${newPin}`);
+      alert(`🔑 Roll No: ${rollStr} (${stu.name}) యొక్క కొత్త Personal PIN: ${newPin}`);
     }
   }
 
@@ -793,7 +784,7 @@
 
     document.getElementById('dirFeeInfo').innerText = payable === 0
       ? `🎉 100% Super Admin Discount వర్తించింది — ఉచితంగా Exam Live చేయవచ్చు!`
-      : `Exam Fee: ₹${db.examBasePrice} | Discount: ${inst.discount}% | Payable: ₹${payable} (${inst.feePaid ? 'PAID: ' + inst.paymentId : 'Razorpay Payment Required'})`;
+      : `Exam Fee: ₹${db.examBasePrice} | Discount: ${inst.discount}% | Payable: ₹${payable}`;
 
     const actionDiv = document.getElementById('dirActionButtons');
     if (inst.examLive) {
@@ -836,53 +827,54 @@
   }
 
   // =========================================================
-  // 1. STUDENT EXAM & STRICT REFRESH / RE-LOGIN PERSISTENCE
+  // 1. STUDENT EXAM (OBJECT-MAP ANSWER SAVING & REFRESH PROOF)
   // =========================================================
   let currentStudent = null;
   let currentIdx = 0;
-  let userAnswers = [];
+  // Store answers as an object map: { "0": 2, "1": 0, ... } for guaranteed JSON serialization
+  let answersMap = {};
   let examEndTimeMs = 0;
   let timerInterval = null;
 
-  function syncStudentProgress(stage) {
+  function saveAllStudentState(stage) {
     if (!currentStudent) return;
 
-    const sessionObj = {
-      stage,
+    const payload = {
+      stage: stage,
       student: currentStudent,
-      currentIdx,
-      userAnswers,
-      examEndTimeMs
+      currentIdx: currentIdx,
+      answersMap: answersMap,
+      examEndTimeMs: examEndTimeMs
     };
-    safeSetItem(ACTIVE_SESSION_KEY, JSON.stringify(sessionObj));
+    writeStore(SESSION_KEY, JSON.stringify(payload));
 
     const db = loadDB();
-    const stuRecord = db.students.find(s => s.instId === currentStudent.instId && s.roll === currentStudent.roll);
-    if (stuRecord) {
-      stuRecord.savedAnswers = [...userAnswers];
-      stuRecord.examEndTimeMs = examEndTimeMs;
-      stuRecord.lastQuestionIdx = currentIdx;
+    const stu = db.students.find(s => s.instId === currentStudent.instId && String(s.roll).trim() === String(currentStudent.roll).trim());
+    if (stu) {
+      stu.answersMap = Object.assign({}, answersMap);
+      stu.examEndTimeMs = examEndTimeMs;
+      stu.lastIdx = currentIdx;
       saveDB(db);
     }
 
     const ind = document.getElementById('saveIndicator');
     if (ind) {
-      ind.innerText = "💾 Saving...";
-      setTimeout(() => { ind.innerText = "✅ Auto-Saved"; }, 300);
+      const count = Object.keys(answersMap).length;
+      ind.innerText = `✅ Saved (${count})`;
     }
   }
 
   function studentLogin() {
     if (typeof QUESTIONS === 'undefined' || !Array.isArray(QUESTIONS) || QUESTIONS.length === 0) {
-      alert("⚠️ questions.js ఫైల్ లోడ్ అవ్వలేదు! index.html మరియు questions.js ఒకే ఫోల్డర్‌లో ఉన్నాయో లేదో చెక్ చేయండి.");
+      alert("⚠️ questions.js లోడ్ అవ్వలేదు! index.html మరియు questions.js ఒకే ఫోల్డర్‌లో ఉన్నాయో లేదో చెక్ చేయండి.");
       return;
     }
 
     const instCode = document.getElementById('stuInstCode').value.trim().toUpperCase();
-    const roll = document.getElementById('stuRoll').value.trim();
+    const roll = String(document.getElementById('stuRoll').value).trim();
     const name = document.getElementById('stuName').value.trim();
     const phone = document.getElementById('stuPhone').value.trim();
-    const enteredPin = document.getElementById('stuPersonalPin').value.trim();
+    const enteredPin = String(document.getElementById('stuPersonalPin').value).trim();
 
     if (!instCode || !roll || !name || phone.length < 10) {
       alert("దయచేసి Institute Code, రోల్ నంబర్, పేరు మరియు 10 అంకెల ఫోన్ నంబర్ నమోదు చేయండి.");
@@ -892,56 +884,54 @@
     const db = loadDB();
     const inst = db.institutes.find(i => i.code === instCode);
     if (!inst) {
-      alert("❌ తప్పు Institute Code! మీ కోచింగ్ సెంటర్ కోడ్ సరిచూసుకోండి.");
+      alert("❌ తప్పు Institute Code!");
       return;
     }
     if (!inst.adminAllowed || !inst.examLive) {
-      alert("⏳ డైరెక్టర్ ఇంకా పరీక్షను ప్రారంభించలేదు (Exam Not Live). దయచేసి వేచి ఉండండి.");
+      alert("⏳ డైరెక్టర్ ఇంకా పరీక్షను ప్రారంభించలేదు (Exam Not Live).");
       return;
     }
 
-    const rollNum = parseInt(roll);
+    const rollNum = parseInt(roll, 10);
     if (isNaN(rollNum) || rollNum < inst.rollStart || rollNum > inst.rollEnd) {
       alert(`⛔ మీ రోల్ నంబర్ (${roll}) ఈ ఇన్‌స్టిట్యూట్ జాబితాలో లేదు.`);
       return;
     }
 
-    let stuRecord = db.students.find(s => s.instId === inst.id && s.roll === roll);
+    let stu = db.students.find(s => s.instId === inst.id && String(s.roll).trim() === roll);
 
-    if (!stuRecord) {
-      const newPersonalPin = generatePin4();
-      const freshAnswers = new Array(QUESTIONS.length).fill(null);
-      const freshEndTime = Date.now() + (180 * 60 * 1000);
-
-      stuRecord = {
+    if (!stu) {
+      const newPin = generatePin4();
+      const endMs = Date.now() + (180 * 60 * 1000);
+      stu = {
         instId: inst.id,
-        roll,
-        name,
-        phone,
-        personalPin: newPersonalPin,
+        roll: roll,
+        name: name,
+        phone: phone,
+        personalPin: newPin,
         status: 'IN_PROGRESS',
-        savedAnswers: freshAnswers,
-        examEndTimeMs: freshEndTime,
-        lastQuestionIdx: 0
+        answersMap: {},
+        examEndTimeMs: endMs,
+        lastIdx: 0
       };
-      db.students.push(stuRecord);
+      db.students.push(stu);
       saveDB(db);
 
       currentStudent = {
         instId: inst.id,
         instName: inst.name,
-        roll: stuRecord.roll,
-        name: stuRecord.name,
-        phone: stuRecord.phone,
-        personalPin: newPersonalPin
+        roll: roll,
+        name: name,
+        phone: phone,
+        personalPin: newPin
       };
-      userAnswers = freshAnswers;
-      examEndTimeMs = freshEndTime;
+      answersMap = {};
+      examEndTimeMs = endMs;
       currentIdx = 0;
 
-      alert(`🎉 స్వాగతం ${name}!\n\nమీ వ్యక్తిగత లాగిన్ PIN (Personal PIN): ${newPersonalPin}\n\nదయచేసి దీనిని నోట్ చేసుకోండి.`);
+      alert(`🎉 స్వాగతం ${name}!\n\nమీ వ్యక్తిగత లాగిన్ PIN (Personal PIN): ${newPin}\n\nదయచేసి దీనిని నోట్ చేసుకోండి.`);
     } else {
-      if (!enteredPin || enteredPin !== stuRecord.personalPin) {
+      if (!enteredPin || enteredPin !== String(stu.personalPin).trim()) {
         alert("🔒 తప్పు Personal PIN! మొదటిసారి వచ్చిన 4-అంకెల PIN ఎంటర్ చేయండి లేదా డైరెక్టర్ ద్వారా Reset PIN చేయించుకోండి.");
         return;
       }
@@ -949,36 +939,34 @@
       currentStudent = {
         instId: inst.id,
         instName: inst.name,
-        roll: stuRecord.roll,
-        name: stuRecord.name,
-        phone: stuRecord.phone,
-        personalPin: stuRecord.personalPin
+        roll: String(stu.roll).trim(),
+        name: stu.name,
+        phone: stu.phone,
+        personalPin: String(stu.personalPin).trim()
       };
 
-      if (stuRecord.status === 'SUBMITTED') {
-        userAnswers = Array.isArray(stuRecord.savedAnswers) ? [...stuRecord.savedAnswers] : new Array(QUESTIONS.length).fill(null);
-        examEndTimeMs = stuRecord.examEndTimeMs || Date.now();
-        syncStudentProgress('RESULT');
+      if (stu.status === 'SUBMITTED') {
+        answersMap = stu.answersMap ? Object.assign({}, stu.answersMap) : {};
+        examEndTimeMs = stu.examEndTimeMs || Date.now();
+        saveAllStudentState('RESULT');
         submitExam();
         return;
       }
 
-      if (stuRecord.status === 'REEXAM_ALLOWED' || !stuRecord.examEndTimeMs) {
-        stuRecord.status = 'IN_PROGRESS';
-        stuRecord.savedAnswers = new Array(QUESTIONS.length).fill(null);
-        stuRecord.examEndTimeMs = Date.now() + (180 * 60 * 1000);
-        stuRecord.lastQuestionIdx = 0;
+      if (stu.status === 'REEXAM_ALLOWED' || !stu.examEndTimeMs) {
+        stu.status = 'IN_PROGRESS';
+        stu.answersMap = {};
+        stu.examEndTimeMs = Date.now() + (180 * 60 * 1000);
+        stu.lastIdx = 0;
         saveDB(db);
       }
 
-      userAnswers = (Array.isArray(stuRecord.savedAnswers) && stuRecord.savedAnswers.length === QUESTIONS.length)
-        ? [...stuRecord.savedAnswers]
-        : new Array(QUESTIONS.length).fill(null);
-      examEndTimeMs = stuRecord.examEndTimeMs;
-      currentIdx = stuRecord.lastQuestionIdx || 0;
+      answersMap = stu.answersMap ? Object.assign({}, stu.answersMap) : {};
+      examEndTimeMs = stu.examEndTimeMs;
+      currentIdx = stu.lastIdx || 0;
     }
 
-    syncStudentProgress('EXAM');
+    saveAllStudentState('EXAM');
     enterExamUI(currentIdx);
   }
 
@@ -1016,6 +1004,7 @@
   function renderQuestion(idx) {
     currentIdx = idx;
     const q = QUESTIONS[idx];
+    const selectedOpt = answersMap[String(idx)];
 
     document.getElementById('qNumberLabel').innerText = `Question ${q.id} of ${QUESTIONS.length}`;
     document.getElementById('qSectionLabel').innerText = q.section;
@@ -1027,25 +1016,23 @@
 
     const optBox = document.getElementById('optionsBox');
     optBox.innerHTML = q.options.map((opt, i) => `
-      <div class="opt-item ${userAnswers[idx] === i ? 'selected' : ''}" onclick="selectOption(${i})">
+      <div class="opt-item ${selectedOpt === i ? 'selected' : ''}" onclick="selectOption(${i})">
         <div class="opt-circle">${i + 1}</div>
         <div>${opt}</div>
       </div>
     `).join('');
 
     updatePalette();
-    syncStudentProgress('EXAM');
+    saveAllStudentState('EXAM');
   }
 
   function selectOption(optIdx) {
-    userAnswers[currentIdx] = optIdx;
-    syncStudentProgress('EXAM');
+    answersMap[String(currentIdx)] = optIdx;
     renderQuestion(currentIdx);
   }
 
   function clearResponse() {
-    userAnswers[currentIdx] = null;
-    syncStudentProgress('EXAM');
+    delete answersMap[String(currentIdx)];
     renderQuestion(currentIdx);
   }
 
@@ -1075,7 +1062,7 @@
       const btn = document.getElementById(`pbtn-${idx}`);
       if (!btn) return;
       btn.className = 'p-btn';
-      if (userAnswers[idx] !== null) {
+      if (answersMap[String(idx)] !== undefined && answersMap[String(idx)] !== null) {
         btn.classList.add('answered');
         answered++;
       }
@@ -1085,7 +1072,7 @@
   }
 
   function confirmSubmit() {
-    const answered = userAnswers.filter(a => a !== null).length;
+    const answered = Object.keys(answersMap).length;
     if (confirm(`మీరు ${QUESTIONS.length} ప్రశ్నలలో ${answered} ప్రశ్నలకు సమాధానాలు ఇచ్చారు. పరీక్ష సబ్మిట్ చేయాలా?`)) {
       submitExam();
     }
@@ -1102,7 +1089,7 @@
     let arith = 0, reas = 0;
 
     const revHTML = QUESTIONS.map((q, idx) => {
-      const uAns = userAnswers[idx];
+      const uAns = answersMap[String(idx)];
       let statusClass = 'rev-skip';
       let statusBadge = '<span style="color:#64748b; font-weight:700;">⚪ వదిలేసినది (Skipped)</span>';
 
@@ -1112,7 +1099,7 @@
         else reas++;
         statusClass = 'rev-correct';
         statusBadge = '<span style="color:#16a34a; font-weight:700;">✅ సరైన సమాధానం (+1)</span>';
-      } else if (uAns !== null) {
+      } else if (uAns !== undefined && uAns !== null) {
         wrong++;
         statusClass = 'rev-wrong';
         statusBadge = '<span style="color:#dc2626; font-weight:700;">❌ తప్పు సమాధానం (0)</span>';
@@ -1126,7 +1113,7 @@
           </div>
           <div style="font-size:0.88rem; font-weight:600; margin-bottom:6px;">${q.q_te}</div>
           <div style="font-size:0.82rem; color:#334155;">
-            మీ సమాధానం: <strong>${uAns !== null ? '(' + (uAns + 1) + ') ' + q.options[uAns] : 'లేరు'}</strong> |
+            మీ సమాధానం: <strong>${(uAns !== undefined && uAns !== null) ? '(' + (uAns + 1) + ') ' + q.options[uAns] : 'లేరు'}</strong> |
             సరైన సమాధానం: <strong style="color:#16a34a;">(${q.ans + 1}) ${q.options[q.ans]}</strong>
           </div>
         </div>
@@ -1134,17 +1121,17 @@
     }).join('');
 
     const db = loadDB();
-    const stuRecord = db.students.find(s => s.instId === currentStudent.instId && s.roll === currentStudent.roll);
-    if (stuRecord) {
-      stuRecord.arith = arith;
-      stuRecord.reas = reas;
-      stuRecord.total = correct;
-      stuRecord.savedAnswers = [...userAnswers];
-      stuRecord.status = 'SUBMITTED';
+    const stu = db.students.find(s => s.instId === currentStudent.instId && String(s.roll).trim() === String(currentStudent.roll).trim());
+    if (stu) {
+      stu.arith = arith;
+      stu.reas = reas;
+      stu.total = correct;
+      stu.answersMap = Object.assign({}, answersMap);
+      stu.status = 'SUBMITTED';
       saveDB(db);
     }
 
-    syncStudentProgress('RESULT');
+    saveAllStudentState('RESULT');
 
     document.getElementById('printInstName').innerText = currentStudent.instName;
     document.getElementById('finalScoreText').innerText = `${correct} / ${QUESTIONS.length}`;
@@ -1159,7 +1146,7 @@
 
   function logoutStudent() {
     if (!confirm("మీరు ఖచ్చితంగా Logout అవ్వాలనుకుంటున్నారా?")) return;
-    safeRemoveItem(ACTIVE_SESSION_KEY);
+    clearStore(SESSION_KEY);
     currentStudent = null;
     document.getElementById('resultScreen').style.display = 'none';
     document.getElementById('examScreen').style.display = 'none';
@@ -1167,31 +1154,25 @@
     document.getElementById('roleSwitcher').style.display = 'grid';
   }
 
-  // Save right before page unload/refresh as extra guarantee
-  window.addEventListener('beforeunload', () => {
-    if (currentStudent && document.getElementById('examScreen').style.display === 'block') {
-      syncStudentProgress('EXAM');
-    }
-  });
-
-  // Restore session after everything loads
-  window.addEventListener('load', () => {
-    const savedRaw = safeGetItem(ACTIVE_SESSION_KEY);
-    if (!savedRaw) return;
+  // =========================================================
+  // AUTO-RESTORE SESSION IMMEDIATELY ON LOAD / REFRESH
+  // =========================================================
+  (function initRestore() {
+    const rawSess = readStore(SESSION_KEY);
+    if (!rawSess) return;
     try {
-      const sess = JSON.parse(savedRaw);
+      const sess = JSON.parse(rawSess);
       if (!sess || !sess.student) return;
 
       const db = loadDB();
-      const dbStu = db.students.find(s => s.instId === sess.student.instId && s.roll === sess.student.roll);
+      const dbStu = db.students.find(s => s.instId === sess.student.instId && String(s.roll).trim() === String(sess.student.roll).trim());
 
       currentStudent = sess.student;
-      const totalQ = getTotalQ();
-      userAnswers = (dbStu && Array.isArray(dbStu.savedAnswers) && dbStu.savedAnswers.length === totalQ)
-        ? [...dbStu.savedAnswers]
-        : (Array.isArray(sess.userAnswers) ? [...sess.userAnswers] : new Array(totalQ).fill(null));
+      answersMap = (dbStu && dbStu.answersMap && Object.keys(dbStu.answersMap).length > 0)
+        ? Object.assign({}, dbStu.answersMap)
+        : (sess.answersMap ? Object.assign({}, sess.answersMap) : {});
       examEndTimeMs = (dbStu && dbStu.examEndTimeMs) ? dbStu.examEndTimeMs : (sess.examEndTimeMs || Date.now());
-      currentIdx = (dbStu && typeof dbStu.lastQuestionIdx === 'number') ? dbStu.lastQuestionIdx : (sess.currentIdx || 0);
+      currentIdx = (dbStu && typeof dbStu.lastIdx === 'number') ? dbStu.lastIdx : (sess.currentIdx || 0);
 
       ['student', 'director', 'admin'].forEach(r => {
         document.getElementById(`view-${r}`).style.display = (r === 'student') ? 'block' : 'none';
@@ -1202,10 +1183,10 @@
       } else {
         enterExamUI(currentIdx);
       }
-    } catch (e) {
-      console.error("Session restore failed:", e);
+    } catch (err) {
+      console.error("Restore error:", err);
     }
-  });
+  })();
 </script>
 
 </body>
