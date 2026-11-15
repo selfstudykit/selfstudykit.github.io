@@ -78,7 +78,6 @@
     .st-active { background: #dcfce7; color: #166534; }
     .st-hold { background: #fee2e2; color: #991b1b; }
 
-    /* Exam UI */
     .exam-bar {
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
       background: white; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 14px;
@@ -147,14 +146,12 @@
     <button class="role-btn" id="tab-admin" onclick="switchRole('admin')">🛡️ Super Admin</button>
   </div>
 
-  <!-- =========================================================
-       1. STUDENT LOGIN & EXAM FLOW
-       ========================================================= -->
+  <!-- 1. STUDENT PORTAL -->
   <div id="view-student">
     <div id="studentLoginCard" class="card">
       <h2 style="font-size: 1.2rem; color: #0f172a; margin-bottom: 6px;">🎓 విద్యార్థి పరీక్ష లాగిన్ (Student Login)</h2>
       <p style="font-size: 0.84rem; color: var(--muted); margin-bottom: 14px;">
-        <strong>మొదటిసారి లాగిన్ అయ్యేవారు:</strong> మీ Institute Code నమోదు చేసి PIN ఖాళీగా వదిలేస్తే మీకు ప్రత్యేకమైన <strong>Personal PIN</strong> జనరేట్ అవుతుంది. ఒకవేళ మధ్యలో Re-login అయితే మీ పాత సమాధానాలు మరియు మిగిలిన సమయం అక్కడి నుండే కొనసాగుతాయి.
+        <strong>మొదటిసారి లాగిన్ అయ్యేవారు:</strong> మీ Institute Code నమోదు చేసి PIN ఖాళీగా వదిలేస్తే మీకు ప్రత్యేకమైన <strong>Personal PIN</strong> జనరేట్ అవుతుంది.
       </p>
 
       <div class="form-grid">
@@ -186,7 +183,7 @@
       </div>
     </div>
 
-    <!-- LIVE EXAM SCREEN (REFRESH-PROOF & AUTO-SAVED) -->
+    <!-- LIVE EXAM SCREEN -->
     <div id="examScreen" style="display: none;">
       <div class="exam-bar">
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -203,7 +200,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
           <strong id="qNumberLabel" style="color:var(--primary-dark);">Question 1 of 200</strong>
           <div>
-            <span id="saveIndicator" style="font-size:0.75rem; color:#16a34a; font-weight:700; margin-right:8px;">✅ Auto-Saved</span>
+            <span id="saveIndicator" style="font-size:0.75rem; color:#16a34a; font-weight:700; margin-right:8px;">✅ Saved</span>
             <span id="qSectionLabel" style="font-size:0.8rem; font-weight:700; background:#f1f5f9; padding:2px 10px; border-radius:6px;">Arithmetic</span>
           </div>
         </div>
@@ -229,7 +226,7 @@
       </div>
     </div>
 
-    <!-- STUDENT SCORECARD & RESPONSE SHEET -->
+    <!-- SCORECARD & RESPONSE SHEET -->
     <div id="resultScreen" style="display: none;">
       <div class="print-header">
         <h2 id="printInstName">Coaching Institute</h2>
@@ -273,13 +270,10 @@
     </div>
   </div>
 
-  <!-- =========================================================
-       2. COACHING CENTER DIRECTOR PANEL
-       ========================================================= -->
+  <!-- 2. DIRECTOR PORTAL -->
   <div id="view-director" style="display: none;">
     <div id="directorLoginCard" class="card">
       <h2 style="font-size:1.2rem; margin-bottom:8px;">🏛️ కోచింగ్ సెంటర్ డైరెక్టర్ లాగిన్ (Director Login)</h2>
-      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:14px;">మీ రిజిస్టర్డ్ మొబైల్ నంబర్ మరియు డైరెక్టర్ PIN తో లాగిన్ అవ్వండి.</p>
       <div class="form-grid">
         <div class="form-group">
           <label>డైరెక్టర్ మొబైల్ నంబర్ *</label>
@@ -311,7 +305,6 @@
             <strong>పరీక్ష స్థితి (Exam Live Control):</strong>
             <span id="dirExamStatusBadge" class="status-pill st-hold" style="margin-left:8px;">STOPPED</span>
             <div id="dirFeeInfo" style="font-size:0.84rem; color:#0f172a; font-weight:700; margin-top:4px;"></div>
-            <div style="font-size:0.78rem; color:#64748b; margin-top:2px;">గమనిక: కొత్త విద్యార్థులను నేరుగా చేర్చే వీలు లేదు. కేటాయించిన రోల్ నంబర్లు మాత్రమే అనుమతించబడతాయి.</div>
           </div>
           <div id="dirActionButtons" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
         </div>
@@ -350,9 +343,7 @@
     </div>
   </div>
 
-  <!-- =========================================================
-       3. SUPER ADMIN PANEL
-       ========================================================= -->
+  <!-- 3. SUPER ADMIN PORTAL -->
   <div id="view-admin" style="display: none;">
     <div id="adminLoginCard" class="card">
       <h2 style="font-size:1.2rem; margin-bottom:8px;">🛡️ సూపర్ అడ్మిన్ లాగిన్ (Super Admin)</h2>
@@ -369,7 +360,6 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
           <div>
             <h3 style="font-size:1.05rem; color:#0369a1;">💰 పరీక్ష నిర్వహణ రుసుము (Global Exam Base Fee)</h3>
-            <p style="font-size:0.82rem; color:#334155;">డైరెక్టర్ పరీక్షను Live చేయడానికి చెల్లించాల్సిన ప్రాథమిక రుసుము (100% డిస్కౌంట్ ఇస్తే ఉచితంగా లైవ్ అవుతుంది).</p>
           </div>
           <div style="display:flex; gap:8px; align-items:center;">
             <input type="number" id="globalExamPriceInput" style="width:110px; padding:8px; border-radius:8px; border:1.5px solid #0284c7; font-weight:800;" min="0">
@@ -439,18 +429,61 @@
 
 <script src="questions.js"></script>
 <script>
-  // =========================================================
-  // 🔑 మీ RAZORPAY LIVE KEY ఇక్కడ పేస్ట్ చేయండి:
-  // =========================================================
   const RAZORPAY_KEY_ID = "rzp_live_YOUR_KEY_HERE";
+  const STORAGE_KEY = "TSSI_PAPER1_SECURE_B2B_V5";
+  const ACTIVE_SESSION_KEY = "TSSI_ACTIVE_STUDENT_SESSION_V5";
 
-  const STORAGE_KEY = "TSSI_PAPER1_SECURE_B2B_V4";
-  const ACTIVE_SESSION_KEY = "TSSI_ACTIVE_STUDENT_SESSION_V4";
+  // Safe dual-layer storage (localStorage + window.name fallback for file:// / refresh)
+  function safeGetItem(key) {
+    try {
+      const val = localStorage.getItem(key);
+      if (val) return val;
+    } catch (e) {}
+    try {
+      if (window.name && window.name.startsWith("B2B_STORE:")) {
+        const bag = JSON.parse(window.name.slice(10));
+        return bag[key] || null;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function safeSetItem(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {}
+    try {
+      let bag = {};
+      if (window.name && window.name.startsWith("B2B_STORE:")) {
+        bag = JSON.parse(window.name.slice(10));
+      }
+      bag[key] = value;
+      window.name = "B2B_STORE:" + JSON.stringify(bag);
+    } catch (e) {}
+  }
+
+  function safeRemoveItem(key) {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {}
+    try {
+      if (window.name && window.name.startsWith("B2B_STORE:")) {
+        const bag = JSON.parse(window.name.slice(10));
+        delete bag[key];
+        window.name = "B2B_STORE:" + JSON.stringify(bag);
+      }
+    } catch (e) {}
+  }
+
+  function getTotalQ() {
+    return (typeof QUESTIONS !== 'undefined' && Array.isArray(QUESTIONS)) ? QUESTIONS.length : 200;
+  }
 
   function loadDB() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-
+    const raw = safeGetItem(STORAGE_KEY);
+    if (raw) {
+      try { return JSON.parse(raw); } catch (e) {}
+    }
     const seed = {
       examBasePrice: 500,
       institutes: [
@@ -471,12 +504,12 @@
       ],
       students: []
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+    safeSetItem(STORAGE_KEY, JSON.stringify(seed));
     return seed;
   }
 
   function saveDB(db) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+    safeSetItem(STORAGE_KEY, JSON.stringify(db));
   }
 
   function generatePin4() {
@@ -484,7 +517,7 @@
   }
 
   function switchRole(role) {
-    if (localStorage.getItem(ACTIVE_SESSION_KEY)) return;
+    if (safeGetItem(ACTIVE_SESSION_KEY)) return;
     ['student', 'director', 'admin'].forEach(r => {
       document.getElementById(`view-${r}`).style.display = (r === role) ? 'block' : 'none';
       document.getElementById(`tab-${r}`).classList.toggle('active', r === role);
@@ -626,7 +659,7 @@
   }
 
   // =========================================================
-  // 2. COACHING CENTER DIRECTOR & RAZORPAY LIVE PAYMENT
+  // 2. DIRECTOR PORTAL
   // =========================================================
   let currentDirectorInstId = null;
 
@@ -669,7 +702,7 @@
       inst.examLive = true;
       saveDB(db);
       renderDirectorDashboard();
-      alert("✅ పరీక్ష విజయవంతంగా LIVE చేయబడింది! విద్యార్థులు ఇప్పుడు లాగిన్ అవ్వవచ్చు.");
+      alert("✅ పరీక్ష విజయవంతంగా LIVE చేయబడింది!");
       return;
     }
 
@@ -684,10 +717,7 @@
       currency: "INR",
       name: "SelfStudyKit Exam Portal",
       description: `Exam Activation: TS SI Mains Paper-1 (${inst.name})`,
-      prefill: {
-        name: inst.name,
-        contact: inst.directorMobile
-      },
+      prefill: { name: inst.name, contact: inst.directorMobile },
       theme: { color: "#0284c7" },
       handler: function (response) {
         const freshDb = loadDB();
@@ -699,14 +729,11 @@
           saveDB(freshDb);
         }
         renderDirectorDashboard();
-        alert(`✅ చెల్లింపు విజయవంతమైంది! Payment ID: ${response.razorpay_payment_id}\nపరీక్ష ఇప్పుడు LIVE లో ఉంది.`);
+        alert(`✅ చెల్లింపు విజయవంతమైంది! Payment ID: ${response.razorpay_payment_id}`);
       }
     };
 
     const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function (resp) {
-      alert("❌ చెల్లింపు విఫలమైంది: " + (resp.error.description || "Please try again."));
-    });
     rzp.open();
   }
 
@@ -721,12 +748,12 @@
   }
 
   function allowReExam(roll) {
-    if (!confirm(`Roll No: ${roll} విద్యార్థికి మళ్ళీ పరీక్ష (Re-Exam) రాసే అవకాశం ఇవ్వాలా? (పాత సమాధానాలు క్లియర్ అవుతాయి)`)) return;
+    if (!confirm(`Roll No: ${roll} విద్యార్థికి మళ్ళీ పరీక్ష (Re-Exam) రాసే అవకాశం ఇవ్వాలా?`)) return;
     const db = loadDB();
     const stu = db.students.find(s => s.instId === currentDirectorInstId && s.roll === roll);
     if (stu) {
       stu.status = 'REEXAM_ALLOWED';
-      stu.savedAnswers = new Array(QUESTIONS.length).fill(null);
+      stu.savedAnswers = new Array(getTotalQ()).fill(null);
       stu.examEndTimeMs = null;
       stu.lastQuestionIdx = 0;
       delete stu.arith;
@@ -745,7 +772,7 @@
       stu.personalPin = newPin;
       saveDB(db);
       renderDirectorDashboard();
-      alert(`🔑 Roll No: ${roll} (${stu.name}) యొక్క కొత్త Personal PIN: ${newPin}\nఈ PIN ను విద్యార్థికి తెలియజేయండి.`);
+      alert(`🔑 Roll No: ${roll} (${stu.name}) యొక్క కొత్త Personal PIN: ${newPin}`);
     }
   }
 
@@ -809,40 +836,48 @@
   }
 
   // =========================================================
-  // 1. STUDENT EXAM & FULL DB-BACKED PERSISTENCE (NO DATA LOSS)
+  // 1. STUDENT EXAM & STRICT REFRESH / RE-LOGIN PERSISTENCE
   // =========================================================
   let currentStudent = null;
   let currentIdx = 0;
-  let userAnswers = new Array(QUESTIONS.length).fill(null);
+  let userAnswers = [];
   let examEndTimeMs = 0;
   let timerInterval = null;
 
-  // Save student's answers & state BOTH to active session AND main DB record
   function syncStudentProgress(stage) {
     if (!currentStudent) return;
 
-    // 1. Save active session for instant Page Refresh restore
     const sessionObj = {
-      stage, // 'EXAM' or 'RESULT'
+      stage,
       student: currentStudent,
       currentIdx,
       userAnswers,
       examEndTimeMs
     };
-    localStorage.setItem(ACTIVE_SESSION_KEY, JSON.stringify(sessionObj));
+    safeSetItem(ACTIVE_SESSION_KEY, JSON.stringify(sessionObj));
 
-    // 2. Also persist answers inside main DB so even Re-Login resumes exact answers & time!
     const db = loadDB();
     const stuRecord = db.students.find(s => s.instId === currentStudent.instId && s.roll === currentStudent.roll);
     if (stuRecord) {
-      stuRecord.savedAnswers = userAnswers;
+      stuRecord.savedAnswers = [...userAnswers];
       stuRecord.examEndTimeMs = examEndTimeMs;
       stuRecord.lastQuestionIdx = currentIdx;
       saveDB(db);
     }
+
+    const ind = document.getElementById('saveIndicator');
+    if (ind) {
+      ind.innerText = "💾 Saving...";
+      setTimeout(() => { ind.innerText = "✅ Auto-Saved"; }, 300);
+    }
   }
 
   function studentLogin() {
+    if (typeof QUESTIONS === 'undefined' || !Array.isArray(QUESTIONS) || QUESTIONS.length === 0) {
+      alert("⚠️ questions.js ఫైల్ లోడ్ అవ్వలేదు! index.html మరియు questions.js ఒకే ఫోల్డర్‌లో ఉన్నాయో లేదో చెక్ చేయండి.");
+      return;
+    }
+
     const instCode = document.getElementById('stuInstCode').value.trim().toUpperCase();
     const roll = document.getElementById('stuRoll').value.trim();
     const name = document.getElementById('stuName').value.trim();
@@ -874,7 +909,6 @@
     let stuRecord = db.students.find(s => s.instId === inst.id && s.roll === roll);
 
     if (!stuRecord) {
-      // FIRST TIME LOGIN
       const newPersonalPin = generatePin4();
       const freshAnswers = new Array(QUESTIONS.length).fill(null);
       const freshEndTime = Date.now() + (180 * 60 * 1000);
@@ -905,9 +939,8 @@
       examEndTimeMs = freshEndTime;
       currentIdx = 0;
 
-      alert(`🎉 స్వాగతం ${name}!\n\nమీ వ్యక్తిగత లాగిన్ PIN (Personal PIN): ${newPersonalPin}\n\nదయచేసి దీనిని నోట్ చేసుకోండి. తర్వాతి సారి లాగిన్ అవ్వడానికి ఈ PIN తప్పనిసరి.`);
+      alert(`🎉 స్వాగతం ${name}!\n\nమీ వ్యక్తిగత లాగిన్ PIN (Personal PIN): ${newPersonalPin}\n\nదయచేసి దీనిని నోట్ చేసుకోండి.`);
     } else {
-      // RE-LOGIN / RETURNING STUDENT
       if (!enteredPin || enteredPin !== stuRecord.personalPin) {
         alert("🔒 తప్పు Personal PIN! మొదటిసారి వచ్చిన 4-అంకెల PIN ఎంటర్ చేయండి లేదా డైరెక్టర్ ద్వారా Reset PIN చేయించుకోండి.");
         return;
@@ -922,16 +955,14 @@
         personalPin: stuRecord.personalPin
       };
 
-      // If already submitted and Re-Exam not enabled, show their Scorecard directly
       if (stuRecord.status === 'SUBMITTED') {
-        userAnswers = Array.isArray(stuRecord.savedAnswers) ? stuRecord.savedAnswers : new Array(QUESTIONS.length).fill(null);
+        userAnswers = Array.isArray(stuRecord.savedAnswers) ? [...stuRecord.savedAnswers] : new Array(QUESTIONS.length).fill(null);
         examEndTimeMs = stuRecord.examEndTimeMs || Date.now();
         syncStudentProgress('RESULT');
         submitExam();
         return;
       }
 
-      // If IN_PROGRESS or REEXAM_ALLOWED -> Restore previously saved answers & remaining time!
       if (stuRecord.status === 'REEXAM_ALLOWED' || !stuRecord.examEndTimeMs) {
         stuRecord.status = 'IN_PROGRESS';
         stuRecord.savedAnswers = new Array(QUESTIONS.length).fill(null);
@@ -940,8 +971,8 @@
         saveDB(db);
       }
 
-      userAnswers = Array.isArray(stuRecord.savedAnswers) && stuRecord.savedAnswers.length === QUESTIONS.length
-        ? stuRecord.savedAnswers
+      userAnswers = (Array.isArray(stuRecord.savedAnswers) && stuRecord.savedAnswers.length === QUESTIONS.length)
+        ? [...stuRecord.savedAnswers]
         : new Array(QUESTIONS.length).fill(null);
       examEndTimeMs = stuRecord.examEndTimeMs;
       currentIdx = stuRecord.lastQuestionIdx || 0;
@@ -1008,7 +1039,7 @@
 
   function selectOption(optIdx) {
     userAnswers[currentIdx] = optIdx;
-    syncStudentProgress('EXAM'); // Immediately persist answer on click
+    syncStudentProgress('EXAM');
     renderQuestion(currentIdx);
   }
 
@@ -1108,7 +1139,7 @@
       stuRecord.arith = arith;
       stuRecord.reas = reas;
       stuRecord.total = correct;
-      stuRecord.savedAnswers = userAnswers;
+      stuRecord.savedAnswers = [...userAnswers];
       stuRecord.status = 'SUBMITTED';
       saveDB(db);
     }
@@ -1128,7 +1159,7 @@
 
   function logoutStudent() {
     if (!confirm("మీరు ఖచ్చితంగా Logout అవ్వాలనుకుంటున్నారా?")) return;
-    localStorage.removeItem(ACTIVE_SESSION_KEY);
+    safeRemoveItem(ACTIVE_SESSION_KEY);
     currentStudent = null;
     document.getElementById('resultScreen').style.display = 'none';
     document.getElementById('examScreen').style.display = 'none';
@@ -1136,24 +1167,29 @@
     document.getElementById('roleSwitcher').style.display = 'grid';
   }
 
-  // =========================================================
-  // IMMEDIATE SESSION RESTORE ON PAGE REFRESH / RELOAD
-  // =========================================================
-  (function restoreSessionImmediately() {
-    const savedRaw = localStorage.getItem(ACTIVE_SESSION_KEY);
+  // Save right before page unload/refresh as extra guarantee
+  window.addEventListener('beforeunload', () => {
+    if (currentStudent && document.getElementById('examScreen').style.display === 'block') {
+      syncStudentProgress('EXAM');
+    }
+  });
+
+  // Restore session after everything loads
+  window.addEventListener('load', () => {
+    const savedRaw = safeGetItem(ACTIVE_SESSION_KEY);
     if (!savedRaw) return;
     try {
       const sess = JSON.parse(savedRaw);
       if (!sess || !sess.student) return;
 
-      // Also pull latest answers from main DB just in case
       const db = loadDB();
       const dbStu = db.students.find(s => s.instId === sess.student.instId && s.roll === sess.student.roll);
 
       currentStudent = sess.student;
-      userAnswers = (dbStu && Array.isArray(dbStu.savedAnswers))
-        ? dbStu.savedAnswers
-        : (sess.userAnswers || new Array(QUESTIONS.length).fill(null));
+      const totalQ = getTotalQ();
+      userAnswers = (dbStu && Array.isArray(dbStu.savedAnswers) && dbStu.savedAnswers.length === totalQ)
+        ? [...dbStu.savedAnswers]
+        : (Array.isArray(sess.userAnswers) ? [...sess.userAnswers] : new Array(totalQ).fill(null));
       examEndTimeMs = (dbStu && dbStu.examEndTimeMs) ? dbStu.examEndTimeMs : (sess.examEndTimeMs || Date.now());
       currentIdx = (dbStu && typeof dbStu.lastQuestionIdx === 'number') ? dbStu.lastQuestionIdx : (sess.currentIdx || 0);
 
@@ -1167,9 +1203,9 @@
         enterExamUI(currentIdx);
       }
     } catch (e) {
-      console.error("Session restore error:", e);
+      console.error("Session restore failed:", e);
     }
-  })();
+  });
 </script>
 
 </body>
