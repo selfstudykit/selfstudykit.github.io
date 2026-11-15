@@ -3,64 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TS SI Mains 2023 Paper-1 | Secure B2B Exam Portal</title>
+  <title>TS SI Mains 2023 Paper-1 | Cloud-Synced B2B Exam Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     :root {
-      --primary: #0284c7;
-      --primary-dark: #0369a1;
-      --accent: #16a34a;
-      --danger: #dc2626;
-      --warn: #d97706;
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --border: #e2e8f0;
+      --primary: #0284c7; --primary-dark: #0369a1; --accent: #16a34a;
+      --danger: #dc2626; --warn: #d97706; --bg: #f1f5f9; --card: #ffffff;
+      --text: #0f172a; --muted: #64748b; --border: #e2e8f0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Noto Sans Telugu', sans-serif; }
     body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
-
-    header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: white; padding: 16px; text-align: center;
-      border-bottom: 4px solid #38bdf8; position: sticky; top: 0; z-index: 50;
-    }
+    header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 16px; text-align: center; border-bottom: 4px solid #38bdf8; position: sticky; top: 0; z-index: 50; }
     header h1 { font-size: 1.15rem; font-weight: 800; color: #38bdf8; }
     header p { font-size: 0.8rem; color: #cbd5e1; margin-top: 2px; }
-
     .container { max-width: 1000px; margin: 20px auto; padding: 0 14px; }
-    .card {
-      background: var(--card); border-radius: 14px; padding: 20px;
-      border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      margin-bottom: 18px;
-    }
-
-    .role-tabs {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-      background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 18px;
-    }
-    .role-btn {
-      padding: 10px 6px; border: none; border-radius: 9px; font-weight: 800;
-      font-size: 0.86rem; cursor: pointer; background: transparent; color: #475569; transition: 0.2s;
-    }
+    .card { background: var(--card); border-radius: 14px; padding: 20px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 18px; }
+    .role-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 18px; }
+    .role-btn { padding: 10px 6px; border: none; border-radius: 9px; font-weight: 800; font-size: 0.86rem; cursor: pointer; background: transparent; color: #475569; }
     .role-btn.active { background: white; color: var(--primary-dark); box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 14px; }
     .form-group label { display: block; font-size: 0.84rem; font-weight: 700; margin-bottom: 4px; color: #334155; }
-    .form-group input, .form-group select {
-      width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 9px;
-      font-size: 0.94rem; outline: none;
-    }
-    .form-group input:focus { border-color: var(--primary); }
-
-    .btn {
-      display: inline-block; padding: 11px 16px; border: none; border-radius: 9px;
-      font-size: 0.92rem; font-weight: 800; cursor: pointer; text-align: center; transition: 0.2s;
-    }
+    .form-group input { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 9px; font-size: 0.94rem; outline: none; }
+    .btn { display: inline-block; padding: 11px 16px; border: none; border-radius: 9px; font-size: 0.92rem; font-weight: 800; cursor: pointer; text-align: center; }
     .btn-full { width: 100%; }
     .btn-primary { background: var(--primary); color: white; }
     .btn-success { background: var(--accent); color: white; }
@@ -68,59 +35,32 @@
     .btn-warn { background: var(--warn); color: white; }
     .btn-outline { background: #f8fafc; color: #334155; border: 1.5px solid #cbd5e1; }
     .btn-sm { padding: 6px 10px; font-size: 0.78rem; border-radius: 6px; }
-
     .table-wrap { overflow-x: auto; margin-top: 12px; }
     table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
     th, td { border: 1px solid var(--border); padding: 9px 10px; text-align: left; }
-    th { background: #f1f5f9; font-weight: 800; color: #1e293b; }
-
+    th { background: #f1f5f9; font-weight: 800; }
     .status-pill { padding: 3px 9px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; }
     .st-active { background: #dcfce7; color: #166534; }
     .st-hold { background: #fee2e2; color: #991b1b; }
-
-    .exam-bar {
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
-      background: white; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 14px;
-    }
+    .exam-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: white; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 14px; }
     .timer-box { background: #fee2e2; color: #b91c1c; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 1rem; }
-    .sec-btn {
-      padding: 7px 12px; border-radius: 8px; border: 1.5px solid #cbd5e1;
-      background: #f8fafc; font-weight: 700; font-size: 0.84rem; cursor: pointer;
-    }
+    .sec-btn { padding: 7px 12px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #f8fafc; font-weight: 700; font-size: 0.84rem; cursor: pointer; }
     .sec-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-    .q-text-en { font-size: 0.96rem; font-weight: 600; color: #0f172a; margin-bottom: 8px; white-space: pre-line; }
-    .q-text-te { font-size: 0.96rem; font-weight: 600; color: #1e293b; margin-bottom: 16px; background: #f8fafc; padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--primary); white-space: pre-line; }
-
-    .opt-item {
-      display: flex; align-items: center; gap: 12px; padding: 11px 14px;
-      border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer;
-      margin-bottom: 9px; font-size: 0.94rem; font-weight: 600; background: white;
-    }
+    .q-text-en { font-size: 0.96rem; font-weight: 600; margin-bottom: 8px; white-space: pre-line; }
+    .q-text-te { font-size: 0.96rem; font-weight: 600; margin-bottom: 16px; background: #f8fafc; padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--primary); white-space: pre-line; }
+    .opt-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; margin-bottom: 9px; font-size: 0.94rem; font-weight: 600; background: white; }
     .opt-item.selected { border-color: var(--primary); background: #e0f2fe; color: #0369a1; }
-    .opt-circle {
-      width: 26px; height: 26px; border-radius: 50%; border: 2px solid #94a3b8;
-      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; flex-shrink: 0;
-    }
+    .opt-circle { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #94a3b8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; flex-shrink: 0; }
     .opt-item.selected .opt-circle { background: var(--primary); color: white; border-color: var(--primary); }
-
-    .palette-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
-      gap: 5px; max-height: 200px; overflow-y: auto; padding: 4px;
-    }
+    .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap: 5px; max-height: 200px; overflow-y: auto; padding: 4px; }
     .p-btn { padding: 6px 0; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
     .p-btn.answered { background: #16a34a; color: white; border-color: #16a34a; }
     .p-btn.current { outline: 2.5px solid #0284c7; }
-
-    .score-banner {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      color: white; border-radius: 14px; padding: 22px; text-align: center; margin-bottom: 16px;
-    }
+    .score-banner { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: white; border-radius: 14px; padding: 22px; text-align: center; margin-bottom: 16px; }
     .rev-item { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: white; }
     .rev-correct { border-left: 5px solid #16a34a; }
     .rev-wrong { border-left: 5px solid #dc2626; }
     .rev-skip { border-left: 5px solid #94a3b8; }
-
     @media print {
       header, .no-print, .role-tabs { display: none !important; }
       body { background: white; padding: 0; }
@@ -134,56 +74,33 @@
 
 <header>
   <h1>👮‍♂️ TS SI Mains 2023 — Paper-1 (Arithmetic & Reasoning)</h1>
-  <p>TSLPRB Official Exam Portal (08-04-2023) • Secure Multi-Institute Portal</p>
+  <p>TSLPRB Official Exam Portal (08-04-2023) • Cloud-Synced Secure Portal</p>
 </header>
 
 <div class="container">
-
-  <!-- TOP ROLE SWITCHER -->
   <div class="role-tabs no-print" id="roleSwitcher">
     <button class="role-btn active" id="tab-student" onclick="switchRole('student')">🎓 Student Login</button>
     <button class="role-btn" id="tab-director" onclick="switchRole('director')">🏛️ Director Login</button>
     <button class="role-btn" id="tab-admin" onclick="switchRole('admin')">🛡️ Super Admin</button>
   </div>
 
-  <!-- 1. STUDENT PORTAL -->
+  <!-- 1. STUDENT VIEW -->
   <div id="view-student">
     <div id="studentLoginCard" class="card">
-      <h2 style="font-size: 1.2rem; color: #0f172a; margin-bottom: 6px;">🎓 విద్యార్థి పరీక్ష లాగిన్ (Student Login)</h2>
+      <h2 style="font-size: 1.2rem; margin-bottom: 6px;">🎓 విద్యార్థి పరీక్ష లాగిన్ (Student Login)</h2>
       <p style="font-size: 0.84rem; color: var(--muted); margin-bottom: 14px;">
-        <strong>మొదటిసారి లాగిన్ అయ్యేవారు:</strong> మీ Institute Code నమోదు చేసి PIN ఖాళీగా వదిలేస్తే మీకు ప్రత్యేకమైన <strong>Personal PIN</strong> జనరేట్ అవుతుంది.
+        <strong>మొదటిసారి లాగిన్:</strong> PIN ఖాళీగా వదిలేస్తే మీకు ప్రత్యేక <strong>Personal PIN</strong> వస్తుంది. రీఫ్రెష్ చేసినా లేదా మళ్ళీ లాగిన్ అయినా మీ పాత సమాధానాలు & మిగిలిన సమయం అక్కడి నుండే కొనసాగుతాయి.
       </p>
-
       <div class="form-grid">
-        <div class="form-group">
-          <label>ఇన్‌స్టిట్యూట్ కోడ్ (Institute Code) *</label>
-          <input type="text" id="stuInstCode" placeholder="ఉదా: TPA100">
-        </div>
-        <div class="form-group">
-          <label>రోల్ నంబర్ (Roll Number) *</label>
-          <input type="text" id="stuRoll" placeholder="ఉదా: 101">
-        </div>
-        <div class="form-group">
-          <label>విద్యార్థి పూర్తి పేరు (Full Name) *</label>
-          <input type="text" id="stuName" placeholder="ఉదా: K. Rajesh">
-        </div>
-        <div class="form-group">
-          <label>మొబైల్ నంబర్ (Phone Number) *</label>
-          <input type="tel" id="stuPhone" maxlength="10" placeholder="10 అంకెల నంబర్">
-        </div>
-        <div class="form-group">
-          <label>మీ వ్యక్తిగత PIN (Personal PIN - 2nd Time onwards)</label>
-          <input type="password" id="stuPersonalPin" maxlength="4" placeholder="1st time అయితే ఖాళీగా వదిలేయండి">
-        </div>
+        <div class="form-group"><label>ఇన్‌స్టిట్యూట్ కోడ్ *</label><input type="text" id="stuInstCode" placeholder="ఉదా: TPA100"></div>
+        <div class="form-group"><label>రోల్ నంబర్ *</label><input type="text" id="stuRoll" placeholder="ఉదా: 101"></div>
+        <div class="form-group"><label>విద్యార్థి పూర్తి పేరు *</label><input type="text" id="stuName" placeholder="ఉదా: K. Rajesh"></div>
+        <div class="form-group"><label>మొబైల్ నంబర్ *</label><input type="tel" id="stuPhone" maxlength="10" placeholder="10 అంకెల నంబర్"></div>
+        <div class="form-group"><label>మీ వ్యక్తిగత PIN (2nd Time onwards)</label><input type="password" id="stuPersonalPin" maxlength="4" placeholder="1st time అయితే ఖాళీగా వదిలేయండి"></div>
       </div>
-
-      <button class="btn btn-primary btn-full" onclick="studentLogin()">🚀 పరీక్ష ప్రారంభించండి / కొనసాగించండి</button>
-      <div style="margin-top:12px; font-size:0.78rem; color:#64748b; background:#f8fafc; padding:8px 12px; border-radius:8px;">
-        <strong>Demo Institute Code:</strong> <code>TPA100</code> | Allowed Rolls: <code>101 - 200</code>
-      </div>
+      <button class="btn btn-primary btn-full" id="stuLoginBtn" onclick="studentLogin()">🚀 పరీక్ష ప్రారంభించండి / కొనసాగించండి</button>
     </div>
 
-    <!-- LIVE EXAM SCREEN -->
     <div id="examScreen" style="display: none;">
       <div class="exam-bar">
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -200,15 +117,13 @@
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:12px;">
           <strong id="qNumberLabel" style="color:var(--primary-dark);">Question 1 of 200</strong>
           <div>
-            <span id="saveIndicator" style="font-size:0.75rem; color:#16a34a; font-weight:700; margin-right:8px;">✅ Auto-Saved</span>
+            <span id="saveIndicator" style="font-size:0.76rem; color:#16a34a; font-weight:800; margin-right:8px;">☁️ Cloud Synced</span>
             <span id="qSectionLabel" style="font-size:0.8rem; font-weight:700; background:#f1f5f9; padding:2px 10px; border-radius:6px;">Arithmetic</span>
           </div>
         </div>
-
         <div class="q-text-en" id="qTextEn"></div>
         <div class="q-text-te" id="qTextTe"></div>
         <div id="optionsBox"></div>
-
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:16px;">
           <button class="btn btn-outline" onclick="prevQuestion()">⬅️ Prev</button>
           <button class="btn btn-outline" onclick="clearResponse()">🔄 Clear</button>
@@ -226,43 +141,26 @@
       </div>
     </div>
 
-    <!-- SCORECARD & RESPONSE SHEET -->
     <div id="resultScreen" style="display: none;">
       <div class="print-header">
         <h2 id="printInstName">Coaching Institute</h2>
         <p>TS SI Mains 2023 — Paper-1 (Arithmetic & Reasoning) Scorecard & Response Sheet</p>
       </div>
-
       <div class="score-banner">
         <div style="font-size:0.9rem;">TS SI Mains 2023 — Paper-1 Scorecard</div>
         <div style="font-size:2.3rem; font-weight:800; margin:4px 0;" id="finalScoreText">0 / 200</div>
         <div id="candidateMetaText" style="font-size:0.88rem;"></div>
       </div>
-
       <div class="card" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; text-align:center;">
-        <div style="background:#f0fdf4; padding:10px; border-radius:8px;">
-          <div style="font-size:0.75rem; color:#166534;">Correct</div>
-          <strong style="font-size:1.2rem; color:#16a34a;" id="statCorrect">0</strong>
-        </div>
-        <div style="background:#fef2f2; padding:10px; border-radius:8px;">
-          <div style="font-size:0.75rem; color:#991b1b;">Wrong</div>
-          <strong style="font-size:1.2rem; color:#dc2626;" id="statWrong">0</strong>
-        </div>
-        <div style="background:#f0f9ff; padding:10px; border-radius:8px;">
-          <div style="font-size:0.75rem; color:#0369a1;">Arithmetic</div>
-          <strong style="font-size:1.2rem;" id="arithScore">0/100</strong>
-        </div>
-        <div style="background:#faf5ff; padding:10px; border-radius:8px;">
-          <div style="font-size:0.75rem; color:#6b21a8;">Reasoning</div>
-          <strong style="font-size:1.2rem;" id="reasScore">0/100</strong>
-        </div>
+        <div style="background:#f0fdf4; padding:10px; border-radius:8px;"><div style="font-size:0.75rem;">Correct</div><strong style="font-size:1.2rem; color:#16a34a;" id="statCorrect">0</strong></div>
+        <div style="background:#fef2f2; padding:10px; border-radius:8px;"><div style="font-size:0.75rem;">Wrong</div><strong style="font-size:1.2rem; color:#dc2626;" id="statWrong">0</strong></div>
+        <div style="background:#f0f9ff; padding:10px; border-radius:8px;"><div style="font-size:0.75rem;">Arithmetic</div><strong style="font-size:1.2rem;" id="arithScore">0/100</strong></div>
+        <div style="background:#faf5ff; padding:10px; border-radius:8px;"><div style="font-size:0.75rem;">Reasoning</div><strong style="font-size:1.2rem;" id="reasScore">0/100</strong></div>
       </div>
-
       <div class="no-print" style="display:flex; gap:10px; margin-bottom:16px;">
         <button class="btn btn-primary" style="flex:1;" onclick="window.print()">🖨️ Download Scorecard & Response Sheet (PDF)</button>
         <button class="btn btn-danger" onclick="logoutStudent()">🚪 Logout</button>
       </div>
-
       <div class="card">
         <h3 style="margin-bottom:12px; font-size:1.05rem;">📋 పూర్తి సమాధానాల పత్రం (Response Sheet)</h3>
         <div id="reviewContainer"></div>
@@ -270,70 +168,53 @@
     </div>
   </div>
 
-  <!-- 2. DIRECTOR PORTAL -->
+  <!-- 2. DIRECTOR VIEW -->
   <div id="view-director" style="display: none;">
     <div id="directorLoginCard" class="card">
-      <h2 style="font-size:1.2rem; margin-bottom:8px;">🏛️ కోచింగ్ సెంటర్ డైరెక్టర్ లాగిన్ (Director Login)</h2>
+      <h2 style="font-size:1.2rem; margin-bottom:8px;">🏛️ కోచింగ్ సెంటర్ డైరెక్టర్ లాగిన్</h2>
       <div class="form-grid">
-        <div class="form-group">
-          <label>డైరెక్టర్ మొబైల్ నంబర్ *</label>
-          <input type="tel" id="dirMobile" maxlength="10" placeholder="ఉదా: 9876543210">
-        </div>
-        <div class="form-group">
-          <label>డైరెక్టర్ PIN *</label>
-          <input type="password" id="dirPin" placeholder="ఉదా: 1234">
-        </div>
+        <div class="form-group"><label>డైరెక్టర్ మొబైల్ నంబర్ *</label><input type="tel" id="dirMobile" maxlength="10"></div>
+        <div class="form-group"><label>డైరెక్టర్ PIN *</label><input type="password" id="dirPin"></div>
       </div>
       <button class="btn btn-primary btn-full" onclick="directorLogin()">🔓 డైరెక్టర్ డ్యాష్‌బోర్డ్ ఓపెన్ చేయండి</button>
-      <div style="margin-top:10px; font-size:0.78rem; color:#64748b;">
-        <strong>Demo Director:</strong> Mobile: <code>9876543210</code> | PIN: <code>1234</code>
-      </div>
     </div>
 
     <div id="directorDashboard" style="display: none;">
       <div class="card no-print">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
           <div>
-            <h2 id="dirInstTitle" style="font-size:1.2rem; color:var(--primary-dark);">Institute Name</h2>
+            <h2 id="dirInstTitle" style="font-size:1.2rem; color:var(--primary-dark);"></h2>
             <p id="dirInstMeta" style="font-size:0.84rem; color:var(--muted);"></p>
           </div>
-          <button class="btn btn-outline btn-sm" onclick="directorLogout()">🚪 Logout</button>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-primary btn-sm" onclick="refreshDirectorData()">🔄 Refresh</button>
+            <button class="btn btn-outline btn-sm" onclick="directorLogout()">🚪 Logout</button>
+          </div>
         </div>
-
         <div style="background:#f8fafc; border:1px solid var(--border); padding:14px; border-radius:10px; margin-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
           <div>
-            <strong>పరీక్ష స్థితి (Exam Live Control):</strong>
-            <span id="dirExamStatusBadge" class="status-pill st-hold" style="margin-left:8px;">STOPPED</span>
-            <div id="dirFeeInfo" style="font-size:0.84rem; color:#0f172a; font-weight:700; margin-top:4px;"></div>
+            <strong>పరీక్ష స్థితి:</strong> <span id="dirExamStatusBadge" class="status-pill st-hold" style="margin-left:8px;">STOPPED</span>
+            <div id="dirFeeInfo" style="font-size:0.84rem; font-weight:700; margin-top:4px;"></div>
           </div>
-          <div id="dirActionButtons" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+          <div id="dirActionButtons" style="display:flex; gap:8px;"></div>
         </div>
       </div>
 
       <div class="card">
         <div class="print-header">
-          <h2 id="meritPrintInstName">Coaching Institute</h2>
+          <h2 id="meritPrintInstName"></h2>
           <h3>TS SI Mains 2023 — Paper-1 (Arithmetic & Reasoning) Official Merit List</h3>
         </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;" class="no-print">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;" class="no-print">
           <h3 style="font-size:1.08rem;">📊 విద్యార్థుల ర్యాంకుల జాబితా & Re-Exam / PIN Reset</h3>
-          <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Download Merit List PDF (Ranks)</button>
+          <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Download Merit List PDF</button>
         </div>
-
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Roll No</th>
-                <th>విద్యార్థి పేరు (Name)</th>
-                <th>Arith (100)</th>
-                <th>Reas (100)</th>
-                <th>Total (200)</th>
-                <th class="no-print">Student PIN</th>
-                <th class="no-print">Status</th>
-                <th class="no-print">Director Controls</th>
+                <th>Rank</th><th>Roll No</th><th>విద్యార్థి పేరు</th><th>Arith</th><th>Reas</th><th>Total (200)</th>
+                <th class="no-print">Student PIN</th><th class="no-print">Status</th><th class="no-print">Controls</th>
               </tr>
             </thead>
             <tbody id="directorStudentsBody"></tbody>
@@ -343,80 +224,45 @@
     </div>
   </div>
 
-  <!-- 3. SUPER ADMIN PORTAL -->
+  <!-- 3. SUPER ADMIN VIEW -->
   <div id="view-admin" style="display: none;">
     <div id="adminLoginCard" class="card">
-      <h2 style="font-size:1.2rem; margin-bottom:8px;">🛡️ సూపర్ అడ్మిన్ లాగిన్ (Super Admin)</h2>
-      <div class="form-group">
-        <label>Super Admin Master Password *</label>
-        <input type="password" id="adminPass" placeholder="అడ్మిన్ పాస్‌వర్డ్ నమోదు చేయండి">
-      </div>
+      <h2 style="font-size:1.2rem; margin-bottom:8px;">🛡️ సూపర్ అడ్మిన్ లాగిన్</h2>
+      <div class="form-group"><label>Super Admin Password *</label><input type="password" id="adminPass"></div>
       <button class="btn btn-primary btn-full" onclick="adminLogin()">🔐 Super Admin లాగిన్</button>
-      <div style="margin-top:8px; font-size:0.78rem; color:#64748b;">Default Demo Password: <code>admin2026</code></div>
     </div>
 
     <div id="adminDashboard" style="display: none;">
       <div class="card" style="background:#f0f9ff; border-color:#bae6fd;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-          <div>
-            <h3 style="font-size:1.05rem; color:#0369a1;">💰 పరీక్ష నిర్వహణ రుసుము (Global Exam Base Fee)</h3>
-          </div>
+          <div><h3 style="font-size:1.05rem; color:#0369a1;">💰 పరీక్ష నిర్వహణ రుసుము (Exam Base Fee)</h3></div>
           <div style="display:flex; gap:8px; align-items:center;">
-            <input type="number" id="globalExamPriceInput" style="width:110px; padding:8px; border-radius:8px; border:1.5px solid #0284c7; font-weight:800;" min="0">
-            <button class="btn btn-primary btn-sm" onclick="saveGlobalPrice()">💾 Update Price (₹)</button>
+            <input type="number" id="globalExamPriceInput" style="width:110px; padding:8px; border-radius:8px; border:1.5px solid #0284c7; font-weight:800;">
+            <button class="btn btn-primary btn-sm" onclick="saveGlobalPrice()">💾 Update Price</button>
             <button class="btn btn-outline btn-sm" onclick="adminLogout()">🚪 Logout</button>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <h4 style="margin-bottom:10px; color:var(--primary-dark);">➕ కొత్త కోచింగ్ సెంటర్ / డైరెక్టర్‌ను జత చేయండి</h4>
+        <h4 style="margin-bottom:10px; color:var(--primary-dark);">➕ కొత్త కోచింగ్ సెంటర్‌ను జత చేయండి</h4>
         <div class="form-grid">
-          <div class="form-group">
-            <label>కోచింగ్ సెంటర్ పేరు *</label>
-            <input type="text" id="newInstName" placeholder="ఉదా: Kakatiya Study Circle">
-          </div>
-          <div class="form-group">
-            <label>ఇన్‌స్టిట్యూట్ కోడ్ (Institute Code) *</label>
-            <input type="text" id="newInstCode" placeholder="ఉదా: KSC200">
-          </div>
-          <div class="form-group">
-            <label>డైరెక్టర్ మొబైల్ నంబర్ *</label>
-            <input type="tel" id="newDirMobile" maxlength="10" placeholder="10 అంకెల నంబర్">
-          </div>
-          <div class="form-group">
-            <label>డైరెక్టర్ లాగిన్ PIN *</label>
-            <input type="text" id="newDirPin" placeholder="ఉదా: 5566">
-          </div>
-          <div class="form-group">
-            <label>డిస్కౌంట్ (%) — 100 ఇస్తే ఉచితం *</label>
-            <input type="number" id="newInstDiscount" value="0" min="0" max="100">
-          </div>
-          <div class="form-group">
-            <label>అనుమతించిన రోల్ నంబర్లు (From - To) *</label>
-            <div style="display:flex; gap:6px;">
-              <input type="number" id="rollStart" placeholder="From" value="101">
-              <input type="number" id="rollEnd" placeholder="To" value="150">
-            </div>
-          </div>
+          <div class="form-group"><label>కోచింగ్ సెంటర్ పేరు *</label><input type="text" id="newInstName"></div>
+          <div class="form-group"><label>ఇన్‌స్టిట్యూట్ కోడ్ *</label><input type="text" id="newInstCode"></div>
+          <div class="form-group"><label>డైరెక్టర్ మొబైల్ *</label><input type="tel" id="newDirMobile" maxlength="10"></div>
+          <div class="form-group"><label>డైరెక్టర్ PIN *</label><input type="text" id="newDirPin"></div>
+          <div class="form-group"><label>డిస్కౌంట్ (%) *</label><input type="number" id="newInstDiscount" value="0" min="0" max="100"></div>
+          <div class="form-group"><label>రోల్ నంబర్లు (From - To) *</label><div style="display:flex; gap:6px;"><input type="number" id="rollStart" value="101"><input type="number" id="rollEnd" value="150"></div></div>
         </div>
         <button class="btn btn-success" onclick="addNewInstitute()">✅ ఇన్‌స్టిట్యూట్ క్రియేట్ చేయండి</button>
       </div>
 
       <div class="card">
-        <h3 style="font-size:1.05rem; margin-bottom:8px;">📋 రిజిస్టర్ అయిన కోచింగ్ సెంటర్ల నియంత్రణ</h3>
+        <h3 style="font-size:1.05rem; margin-bottom:8px;">📋 కోచింగ్ సెంటర్ల నియంత్రణ</h3>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr>
-                <th>Institute & Code</th>
-                <th>Director Mobile & PIN</th>
-                <th>Rolls</th>
-                <th>Discount & Payable</th>
-                <th>Payment / Ref</th>
-                <th>Status</th>
-                <th>Admin Controls</th>
-              </tr>
+              <tr><th>Institute & Code</th><th>Director & PIN</th><th>Rolls</th><th>Discount & Fee</th><th>Payment</th><th>Status</th><th>Controls</th></tr>
             </thead>
             <tbody id="adminInstTableBody"></tbody>
           </table>
@@ -424,578 +270,248 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <script src="questions.js"></script>
 <script>
+  // =========================================================
+  // 🔑 1. మీ CLOUDFLARE WORKER URL మరియు RAZORPAY KEY ఇక్కడ ఉంచండి:
+  // =========================================================
+  const API_URL = "https://tssi-test-api.YOUR_SUBDOMAIN.workers.dev";
   const RAZORPAY_KEY_ID = "rzp_live_YOUR_KEY_HERE";
-  const DB_KEY = "TSSI_P1_DB_FINAL";
-  const SESSION_KEY = "TSSI_P1_ACTIVE_SESSION";
 
-  // Dual storage helper (localStorage + window.name for mobile local/refresh persistence)
-  function readStore(key) {
-    try {
-      const v = localStorage.getItem(key);
-      if (v) return v;
-    } catch (e) {}
-    try {
-      if (window.name && window.name.indexOf("TSSI_BAG:") === 0) {
-        const obj = JSON.parse(window.name.substring(9));
-        if (obj && obj[key]) return obj[key];
-      }
-    } catch (e) {}
-    return null;
-  }
+  const SESSION_COOKIE_KEY = "TSSI_P1_CLOUD_SESSION";
 
-  function writeStore(key, val) {
-    try { localStorage.setItem(key, val); } catch (e) {}
-    try {
-      let obj = {};
-      if (window.name && window.name.indexOf("TSSI_BAG:") === 0) {
-        obj = JSON.parse(window.name.substring(9)) || {};
-      }
-      obj[key] = val;
-      window.name = "TSSI_BAG:" + JSON.stringify(obj);
-    } catch (e) {}
-  }
-
-  function clearStore(key) {
-    try { localStorage.removeItem(key); } catch (e) {}
-    try {
-      if (window.name && window.name.indexOf("TSSI_BAG:") === 0) {
-        const obj = JSON.parse(window.name.substring(9)) || {};
-        delete obj[key];
-        window.name = "TSSI_BAG:" + JSON.stringify(obj);
-      }
-    } catch (e) {}
-  }
-
-  function loadDB() {
-    const raw = readStore(DB_KEY);
-    if (raw) {
-      try { return JSON.parse(raw); } catch (e) {}
-    }
-    const seed = {
-      examBasePrice: 500,
-      institutes: [
-        {
-          id: "INST_1",
-          code: "TPA100",
-          name: "Telangana Police Academy (Demo)",
-          directorMobile: "9876543210",
-          directorPin: "1234",
-          rollStart: 101,
-          rollEnd: 200,
-          discount: 100,
-          feePaid: true,
-          paymentId: "FREE_100_DISC",
-          adminAllowed: true,
-          examLive: true
-        }
-      ],
-      students: []
-    };
-    writeStore(DB_KEY, JSON.stringify(seed));
-    return seed;
-  }
-
-  function saveDB(db) {
-    writeStore(DB_KEY, JSON.stringify(db));
-  }
-
-  function generatePin4() {
-    return String(Math.floor(1000 + Math.random() * 9000));
+  async function apiCall(payload) {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
   }
 
   function switchRole(role) {
-    if (readStore(SESSION_KEY)) return;
+    if (localStorage.getItem(SESSION_COOKIE_KEY)) return;
     ['student', 'director', 'admin'].forEach(r => {
       document.getElementById(`view-${r}`).style.display = (r === role) ? 'block' : 'none';
       document.getElementById(`tab-${r}`).classList.toggle('active', r === role);
     });
   }
 
-  // =========================================================
-  // 3. SUPER ADMIN
-  // =========================================================
-  function adminLogin() {
-    if (document.getElementById('adminPass').value.trim() !== "admin2026") {
-      alert("❌ తప్పు Super Admin పాస్‌వర్డ్!");
-      return;
-    }
+  // ================= SUPER ADMIN =================
+  let adminMasterPass = "";
+  async function adminLogin() {
+    const pass = document.getElementById('adminPass').value.trim();
+    const res = await apiCall({ action: "admin_data", pass });
+    if (!res.ok) return alert("❌ తప్పు Super Admin పాస్‌వర్డ్!");
+    adminMasterPass = pass;
     document.getElementById('adminLoginCard').style.display = 'none';
     document.getElementById('adminDashboard').style.display = 'block';
-    document.getElementById('globalExamPriceInput').value = loadDB().examBasePrice;
-    renderAdminTable();
+    document.getElementById('globalExamPriceInput').value = res.basePrice;
+    renderAdminRows(res.institutes, res.basePrice);
   }
-
   function adminLogout() {
+    adminMasterPass = "";
     document.getElementById('adminLoginCard').style.display = 'block';
     document.getElementById('adminDashboard').style.display = 'none';
   }
-
-  function saveGlobalPrice() {
-    const price = Math.max(0, parseInt(document.getElementById('globalExamPriceInput').value) || 0);
-    const db = loadDB();
-    db.examBasePrice = price;
-    saveDB(db);
-    renderAdminTable();
-    alert(`✅ పరీక్ష బేస్ ధర ₹${price} గా అప్‌డేట్ చేయబడింది.`);
+  async function reloadAdmin() {
+    const res = await apiCall({ action: "admin_data", pass: adminMasterPass });
+    if (res.ok) renderAdminRows(res.institutes, res.basePrice);
   }
-
-  function addNewInstitute() {
+  async function saveGlobalPrice() {
+    const price = parseInt(document.getElementById('globalExamPriceInput').value) || 0;
+    await apiCall({ action: "admin_update_price", pass: adminMasterPass, price });
+    reloadAdmin();
+    alert("✅ ధర అప్‌డేట్ చేయబడింది!");
+  }
+  async function addNewInstitute() {
     const name = document.getElementById('newInstName').value.trim();
     const code = document.getElementById('newInstCode').value.trim().toUpperCase();
     const mobile = document.getElementById('newDirMobile').value.trim();
     const pin = document.getElementById('newDirPin').value.trim();
-    const discount = Math.max(0, Math.min(100, parseInt(document.getElementById('newInstDiscount').value) || 0));
+    const discount = parseInt(document.getElementById('newInstDiscount').value) || 0;
     const rollStart = parseInt(document.getElementById('rollStart').value) || 101;
     const rollEnd = parseInt(document.getElementById('rollEnd').value) || 150;
-
-    if (!name || !code || mobile.length < 10 || !pin) {
-      alert("దయచేసి అన్ని వివరాలు సరిగ్గా నమోదు చేయండి.");
-      return;
-    }
-
-    const db = loadDB();
-    if (db.institutes.some(i => i.code === code)) {
-      alert("⚠️ ఈ Institute Code ఇప్పటికే వాడుకలో ఉంది.");
-      return;
-    }
-
-    db.institutes.push({
-      id: "INST_" + Date.now(),
-      code, name, directorMobile: mobile, directorPin: pin,
-      rollStart, rollEnd, discount,
-      feePaid: (discount === 100),
-      paymentId: (discount === 100) ? "FREE_100_DISC" : "",
-      adminAllowed: true,
-      examLive: false
-    });
-    saveDB(db);
-    renderAdminTable();
-    alert("✅ కొత్త కోచింగ్ సెంటర్ జతచేయబడింది!");
+    if (!name || !code || mobile.length < 10 || !pin) return alert("అన్ని వివరాలు నమోదు చేయండి.");
+    await apiCall({ action: "admin_add_inst", pass: adminMasterPass, name, code, mobile, pin, discount, rollStart, rollEnd });
+    reloadAdmin();
+    alert("✅ ఇన్‌స్టిట్యూట్ క్రియేట్ చేయబడింది!");
   }
-
-  function toggleAdminPermission(instId) {
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.id === instId);
-    if (!inst) return;
-    inst.adminAllowed = !inst.adminAllowed;
-    if (!inst.adminAllowed) inst.examLive = false;
-    saveDB(db);
-    renderAdminTable();
+  async function toggleAdminInst(instId, allowed) {
+    await apiCall({ action: "admin_toggle_inst", pass: adminMasterPass, instId, allowed });
+    reloadAdmin();
   }
-
-  function updateDiscount(instId) {
-    const val = prompt("కొత్త డిస్కౌంట్ శాతం (0 - 100) ఎంటర్ చేయండి:");
+  async function editDiscount(instId) {
+    const val = prompt("కొత్త డిస్కౌంట్ శాతం (0 - 100):");
     if (val === null) return;
-    const disc = Math.max(0, Math.min(100, parseInt(val) || 0));
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.id === instId);
-    if (inst) {
-      inst.discount = disc;
-      if (disc === 100) {
-        inst.feePaid = true;
-        inst.paymentId = "FREE_100_DISC";
-      }
-      saveDB(db);
-      renderAdminTable();
-    }
+    await apiCall({ action: "admin_discount", pass: adminMasterPass, instId, discount: parseInt(val) || 0 });
+    reloadAdmin();
   }
-
-  function deleteInstitute(instId) {
-    if (!confirm("⚠️ ఈ కోచింగ్ సెంటర్ ఖాతాను పూర్తిగా తొలగించాలా?")) return;
-    const db = loadDB();
-    db.institutes = db.institutes.filter(i => i.id !== instId);
-    db.students = db.students.filter(s => s.instId !== instId);
-    saveDB(db);
-    renderAdminTable();
+  async function removeInst(instId) {
+    if (!confirm("పూర్తిగా తొలగించాలా?")) return;
+    await apiCall({ action: "admin_delete_inst", pass: adminMasterPass, instId });
+    reloadAdmin();
   }
-
-  function renderAdminTable() {
-    const db = loadDB();
-    const tbody = document.getElementById('adminInstTableBody');
-    tbody.innerHTML = db.institutes.map(inst => {
-      const payable = Math.round(db.examBasePrice * (100 - inst.discount) / 100);
-      return `
-        <tr>
-          <td><strong>${inst.name}</strong><br><small>Code: <code>${inst.code}</code></small></td>
-          <td>${inst.directorMobile}<br><small>PIN: <code>${inst.directorPin}</code></small></td>
-          <td>${inst.rollStart} – ${inst.rollEnd}</td>
-          <td>${inst.discount}% OFF<br><strong>Payable: ₹${payable}</strong></td>
-          <td>
-            <span class="status-pill ${inst.feePaid || payable === 0 ? 'st-active' : 'st-hold'}">
-              ${payable === 0 ? 'FREE (100%)' : (inst.feePaid ? 'PAID' : 'UNPAID')}
-            </span>
-          </td>
-          <td>
-            <span class="status-pill ${inst.adminAllowed ? 'st-active' : 'st-hold'}">
-              ${inst.adminAllowed ? 'ACTIVE' : 'SUSPENDED'}
-            </span>
-          </td>
-          <td style="display:flex; gap:5px; flex-wrap:wrap;">
-            <button class="btn btn-sm ${inst.adminAllowed ? 'btn-warn' : 'btn-success'}" onclick="toggleAdminPermission('${inst.id}')">
-              ${inst.adminAllowed ? '⛔ Hold' : '✅ Allow'}
-            </button>
-            <button class="btn btn-sm btn-primary" onclick="updateDiscount('${inst.id}')">🏷️ Disc%</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteInstitute('${inst.id}')">🗑️ Delete</button>
-          </td>
-        </tr>
-      `;
+  function renderAdminRows(list, basePrice) {
+    document.getElementById('adminInstTableBody').innerHTML = list.map(inst => {
+      const payable = Math.round(basePrice * (100 - inst.discount) / 100);
+      return `<tr>
+        <td><strong>${inst.name}</strong><br><small>Code: <code>${inst.code}</code></small></td>
+        <td>${inst.director_mobile}<br><small>PIN: <code>${inst.director_pin}</code></small></td>
+        <td>${inst.roll_start}–${inst.roll_end}</td>
+        <td>${inst.discount}% OFF<br><strong>₹${payable}</strong></td>
+        <td><span class="status-pill ${inst.fee_paid || payable===0 ? 'st-active' : 'st-hold'}">${payable===0 ? 'FREE' : (inst.fee_paid ? 'PAID' : 'UNPAID')}</span></td>
+        <td><span class="status-pill ${inst.admin_allowed ? 'st-active' : 'st-hold'}">${inst.admin_allowed ? 'ACTIVE' : 'HOLD'}</span></td>
+        <td style="display:flex; gap:5px; flex-wrap:wrap;">
+          <button class="btn btn-sm ${inst.admin_allowed ? 'btn-warn' : 'btn-success'}" onclick="toggleAdminInst('${inst.id}', ${!inst.admin_allowed})">${inst.admin_allowed ? '⛔ Hold' : '✅ Allow'}</button>
+          <button class="btn btn-sm btn-primary" onclick="editDiscount('${inst.id}')">🏷️ Disc%</button>
+          <button class="btn btn-sm btn-danger" onclick="removeInst('${inst.id}')">🗑️ Delete</button>
+        </td>
+      </tr>`;
     }).join('');
   }
 
-  // =========================================================
-  // 2. DIRECTOR PORTAL
-  // =========================================================
-  let currentDirectorInstId = null;
-
-  function directorLogin() {
+  // ================= DIRECTOR =================
+  let dirCreds = null, dirInstData = null, dirBasePrice = 500;
+  async function directorLogin() {
     const mobile = document.getElementById('dirMobile').value.trim();
     const pin = document.getElementById('dirPin').value.trim();
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.directorMobile === mobile && i.directorPin === pin);
-
-    if (!inst) {
-      alert("❌ తప్పు మొబైల్ నంబర్ లేదా డైరెక్టర్ PIN!");
-      return;
-    }
-    if (!inst.adminAllowed) {
-      alert("⛔ Super Admin మీ ఇన్‌స్టిట్యూట్ అనుమతిని నిలిపివేశారు.");
-      return;
-    }
-
-    currentDirectorInstId = inst.id;
+    const res = await apiCall({ action: "director_login", mobile, pin });
+    if (!res.ok) return alert("❌ " + res.error);
+    dirCreds = { mobile, pin };
     document.getElementById('directorLoginCard').style.display = 'none';
     document.getElementById('directorDashboard').style.display = 'block';
-    renderDirectorDashboard();
+    renderDirector(res);
   }
-
+  async function refreshDirectorData() {
+    if (!dirCreds) return;
+    const res = await apiCall({ action: "director_login", mobile: dirCreds.mobile, pin: dirCreds.pin });
+    if (res.ok) renderDirector(res);
+  }
   function directorLogout() {
-    currentDirectorInstId = null;
+    dirCreds = null;
     document.getElementById('directorLoginCard').style.display = 'block';
     document.getElementById('directorDashboard').style.display = 'none';
   }
+  function renderDirector(res) {
+    dirInstData = res.inst;
+    dirBasePrice = res.basePrice;
+    const payable = Math.round(dirBasePrice * (100 - dirInstData.discount) / 100);
+    document.getElementById('dirInstTitle').innerText = `🏛️ ${dirInstData.name}`;
+    document.getElementById('meritPrintInstName').innerText = dirInstData.name;
+    document.getElementById('dirInstMeta').innerText = `Code: ${dirInstData.code} • Rolls: ${dirInstData.roll_start}–${dirInstData.roll_end}`;
+    const badge = document.getElementById('dirExamStatusBadge');
+    badge.innerText = dirInstData.exam_live ? "LIVE" : "STOPPED";
+    badge.className = `status-pill ${dirInstData.exam_live ? 'st-active' : 'st-hold'}`;
+    document.getElementById('dirFeeInfo').innerText = payable === 0 ? "🎉 100% Discount — ఉచితంగా Exam Live చేయవచ్చు!" : `Fee: ₹${dirBasePrice} | Discount: ${dirInstData.discount}% | Payable: ₹${payable}`;
 
-  function initiateDirectorRazorpay() {
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.id === currentDirectorInstId);
-    if (!inst) return;
-
-    const payable = Math.round(db.examBasePrice * (100 - inst.discount) / 100);
-
-    if (payable === 0 || inst.feePaid) {
-      inst.feePaid = true;
-      inst.examLive = true;
-      saveDB(db);
-      renderDirectorDashboard();
-      alert("✅ పరీక్ష విజయవంతంగా LIVE చేయబడింది!");
-      return;
+    const act = document.getElementById('dirActionButtons');
+    if (dirInstData.exam_live) {
+      act.innerHTML = `<button class="btn btn-danger btn-sm" onclick="setExamLive(false, false, '')">⏹️ Stop Exam</button>`;
+    } else if (payable === 0 || dirInstData.fee_paid) {
+      act.innerHTML = `<button class="btn btn-success btn-sm" onclick="setExamLive(true, true, '')">▶️ Start Exam (Live)</button>`;
+    } else {
+      act.innerHTML = `<button class="btn btn-success btn-sm" onclick="payDirectorRazorpay(${payable})">💳 Pay ₹${payable} & Start Exam</button>`;
     }
 
-    if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "rzp_live_YOUR_KEY_HERE") {
-      alert("⚠️ దయచేసి కోడ్‌లో మీ Razorpay Live Key (RAZORPAY_KEY_ID) జత చేయండి.");
-      return;
-    }
-
-    const options = {
-      key: RAZORPAY_KEY_ID,
-      amount: payable * 100,
-      currency: "INR",
-      name: "SelfStudyKit Exam Portal",
-      description: `Exam Activation: TS SI Mains Paper-1 (${inst.name})`,
-      prefill: { name: inst.name, contact: inst.directorMobile },
-      theme: { color: "#0284c7" },
-      handler: function (response) {
-        const freshDb = loadDB();
-        const freshInst = freshDb.institutes.find(i => i.id === currentDirectorInstId);
-        if (freshInst) {
-          freshInst.feePaid = true;
-          freshInst.paymentId = response.razorpay_payment_id || "PAID_ONLINE";
-          freshInst.examLive = true;
-          saveDB(freshDb);
-        }
-        renderDirectorDashboard();
-        alert(`✅ చెల్లింపు విజయవంతమైంది! Payment ID: ${response.razorpay_payment_id}`);
-      }
-    };
-
-    const rzp = new Razorpay(options);
+    document.getElementById('directorStudentsBody').innerHTML = res.students.length === 0
+      ? `<tr><td colspan="9" style="text-align:center;">ఇంకా ఏ విద్యార్థి లాగిన్ అవ్వలేదు.</td></tr>`
+      : res.students.map((s, idx) => `<tr>
+          <td><strong>#${idx+1}</strong></td><td><strong>${s.roll}</strong></td><td>${s.name}</td>
+          <td>${s.arith}</td><td>${s.reas}</td><td><strong>${s.total} / 200</strong></td>
+          <td class="no-print"><code>${s.personal_pin}</code></td>
+          <td class="no-print"><span class="status-pill ${s.status==='SUBMITTED' ? 'st-active' : 'st-hold'}">${s.status}</span></td>
+          <td class="no-print" style="display:flex; gap:5px;">
+            <button class="btn btn-warn btn-sm" onclick="dirReExam('${s.roll}')">🔄 Re-Exam</button>
+            <button class="btn btn-primary btn-sm" onclick="dirResetPin('${s.roll}')">🔑 Reset PIN</button>
+          </td>
+        </tr>`).join('');
+  }
+  async function setExamLive(live, paid, paymentId) {
+    await apiCall({ action: "director_exam_state", instId: dirInstData.id, live, paid, paymentId });
+    refreshDirectorData();
+  }
+  function payDirectorRazorpay(payable) {
+    const rzp = new Razorpay({
+      key: RAZORPAY_KEY_ID, amount: payable * 100, currency: "INR",
+      name: "SelfStudyKit Portal", description: `Exam Live Fee (${dirInstData.name})`,
+      handler: (resp) => setExamLive(true, true, resp.razorpay_payment_id)
+    });
     rzp.open();
   }
-
-  function stopInstituteExam() {
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.id === currentDirectorInstId);
-    if (inst) {
-      inst.examLive = false;
-      saveDB(db);
-      renderDirectorDashboard();
-    }
+  async function dirReExam(roll) {
+    if (!confirm(`Roll ${roll} కి Re-Exam ఇవ్వాలా?`)) return;
+    await apiCall({ action: "director_reexam", instId: dirInstData.id, roll });
+    refreshDirectorData();
+  }
+  async function dirResetPin(roll) {
+    const res = await apiCall({ action: "director_reset_pin", instId: dirInstData.id, roll });
+    if (res.ok) { refreshDirectorData(); alert(`🔑 Roll ${roll} కొత్త PIN: ${res.newPin}`); }
   }
 
-  function allowReExam(roll) {
-    const rollStr = String(roll).trim();
-    if (!confirm(`Roll No: ${rollStr} విద్యార్థికి మళ్ళీ పరీక్ష (Re-Exam) రాసే అవకాశం ఇవ్వాలా?`)) return;
-    const db = loadDB();
-    const stu = db.students.find(s => s.instId === currentDirectorInstId && String(s.roll).trim() === rollStr);
-    if (stu) {
-      stu.status = 'REEXAM_ALLOWED';
-      stu.answersMap = {};
-      stu.examEndTimeMs = null;
-      stu.lastIdx = 0;
-      delete stu.arith;
-      delete stu.reas;
-      delete stu.total;
-      saveDB(db);
-      renderDirectorDashboard();
-    }
-  }
+  // ================= STUDENT (CLOUD PERSISTENT) =================
+  let stuSession = null, currentIdx = 0, answersMap = {}, examEndTimeMs = 0, timerInterval = null;
 
-  function resetStudentPin(roll) {
-    const rollStr = String(roll).trim();
-    const newPin = generatePin4();
-    const db = loadDB();
-    const stu = db.students.find(s => s.instId === currentDirectorInstId && String(s.roll).trim() === rollStr);
-    if (stu) {
-      stu.personalPin = newPin;
-      saveDB(db);
-      renderDirectorDashboard();
-      alert(`🔑 Roll No: ${rollStr} (${stu.name}) యొక్క కొత్త Personal PIN: ${newPin}`);
-    }
-  }
-
-  function renderDirectorDashboard() {
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.id === currentDirectorInstId);
-    if (!inst) return;
-
-    const payable = Math.round(db.examBasePrice * (100 - inst.discount) / 100);
-
-    document.getElementById('dirInstTitle').innerText = `🏛️ ${inst.name}`;
-    document.getElementById('meritPrintInstName').innerText = inst.name;
-    document.getElementById('dirInstMeta').innerText = `Institute Code: ${inst.code} • Allowed Roll Numbers: ${inst.rollStart} to ${inst.rollEnd}`;
-
-    const badge = document.getElementById('dirExamStatusBadge');
-    badge.innerText = inst.examLive ? "LIVE (పరీక్ష జరుగుతోంది)" : "STOPPED (నిలిపివేయబడింది)";
-    badge.className = `status-pill ${inst.examLive ? 'st-active' : 'st-hold'}`;
-
-    document.getElementById('dirFeeInfo').innerText = payable === 0
-      ? `🎉 100% Super Admin Discount వర్తించింది — ఉచితంగా Exam Live చేయవచ్చు!`
-      : `Exam Fee: ₹${db.examBasePrice} | Discount: ${inst.discount}% | Payable: ₹${payable}`;
-
-    const actionDiv = document.getElementById('dirActionButtons');
-    if (inst.examLive) {
-      actionDiv.innerHTML = `<button class="btn btn-danger btn-sm" onclick="stopInstituteExam()">⏹️ Stop Exam</button>`;
-    } else {
-      const btnLabel = (payable === 0 || inst.feePaid) ? "▶️ Start Exam (Live)" : `💳 Pay ₹${payable} via Razorpay & Start Exam`;
-      actionDiv.innerHTML = `<button class="btn btn-success btn-sm" onclick="initiateDirectorRazorpay()">${btnLabel}</button>`;
-    }
-
-    const instStudents = db.students
-      .filter(s => s.instId === inst.id)
-      .sort((a, b) => (b.total || 0) - (a.total || 0));
-
-    const tbody = document.getElementById('directorStudentsBody');
-    if (instStudents.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#64748b;">ఇంకా ఏ విద్యార్థి లాగిన్ అవ్వలేదు.</td></tr>`;
-      return;
-    }
-
-    tbody.innerHTML = instStudents.map((s, idx) => `
-      <tr>
-        <td><strong>#${idx + 1}</strong></td>
-        <td><strong>${s.roll}</strong></td>
-        <td>${s.name}</td>
-        <td>${s.arith ?? '-'}</td>
-        <td>${s.reas ?? '-'}</td>
-        <td><strong style="color:#0369a1;">${s.total !== undefined ? s.total + ' / 200' : 'Writing...'}</strong></td>
-        <td class="no-print"><code>${s.personalPin}</code></td>
-        <td class="no-print">
-          <span class="status-pill ${s.status === 'SUBMITTED' ? 'st-active' : 'st-hold'}">
-            ${s.status}
-          </span>
-        </td>
-        <td class="no-print" style="display:flex; gap:5px; flex-wrap:wrap;">
-          <button class="btn btn-warn btn-sm" onclick="allowReExam('${s.roll}')">🔄 Re-Exam</button>
-          <button class="btn btn-primary btn-sm" onclick="resetStudentPin('${s.roll}')">🔑 Reset PIN</button>
-        </td>
-      </tr>
-    `).join('');
-  }
-
-  // =========================================================
-  // 1. STUDENT EXAM (OBJECT-MAP ANSWER SAVING & REFRESH PROOF)
-  // =========================================================
-  let currentStudent = null;
-  let currentIdx = 0;
-  // Store answers as an object map: { "0": 2, "1": 0, ... } for guaranteed JSON serialization
-  let answersMap = {};
-  let examEndTimeMs = 0;
-  let timerInterval = null;
-
-  function saveAllStudentState(stage) {
-    if (!currentStudent) return;
-
-    const payload = {
-      stage: stage,
-      student: currentStudent,
-      currentIdx: currentIdx,
-      answersMap: answersMap,
-      examEndTimeMs: examEndTimeMs
-    };
-    writeStore(SESSION_KEY, JSON.stringify(payload));
-
-    const db = loadDB();
-    const stu = db.students.find(s => s.instId === currentStudent.instId && String(s.roll).trim() === String(currentStudent.roll).trim());
-    if (stu) {
-      stu.answersMap = Object.assign({}, answersMap);
-      stu.examEndTimeMs = examEndTimeMs;
-      stu.lastIdx = currentIdx;
-      saveDB(db);
-    }
-
-    const ind = document.getElementById('saveIndicator');
-    if (ind) {
-      const count = Object.keys(answersMap).length;
-      ind.innerText = `✅ Saved (${count})`;
-    }
-  }
-
-  function studentLogin() {
-    if (typeof QUESTIONS === 'undefined' || !Array.isArray(QUESTIONS) || QUESTIONS.length === 0) {
-      alert("⚠️ questions.js లోడ్ అవ్వలేదు! index.html మరియు questions.js ఒకే ఫోల్డర్‌లో ఉన్నాయో లేదో చెక్ చేయండి.");
-      return;
-    }
-
-    const instCode = document.getElementById('stuInstCode').value.trim().toUpperCase();
-    const roll = String(document.getElementById('stuRoll').value).trim();
+  async function studentLogin() {
+    const code = document.getElementById('stuInstCode').value.trim().toUpperCase();
+    const roll = document.getElementById('stuRoll').value.trim();
     const name = document.getElementById('stuName').value.trim();
     const phone = document.getElementById('stuPhone').value.trim();
-    const enteredPin = String(document.getElementById('stuPersonalPin').value).trim();
+    const pin = document.getElementById('stuPersonalPin').value.trim();
 
-    if (!instCode || !roll || !name || phone.length < 10) {
-      alert("దయచేసి Institute Code, రోల్ నంబర్, పేరు మరియు 10 అంకెల ఫోన్ నంబర్ నమోదు చేయండి.");
-      return;
+    if (!code || !roll || !name || phone.length < 10) return alert("అన్ని వివరాలు నమోదు చేయండి.");
+    document.getElementById('stuLoginBtn').innerText = "⏳ Connecting to Server...";
+
+    const res = await apiCall({ action: "student_login", code, roll, name, phone, pin });
+    document.getElementById('stuLoginBtn').innerText = "🚀 పరీక్ష ప్రారంభించండి / కొనసాగించండి";
+
+    if (!res.ok) return alert("❌ " + res.error);
+
+    if (res.isNew) {
+      alert(`🎉 స్వాగతం ${name}!\n\nమీ వ్యక్తిగత PIN: ${res.student.personal_pin}\nదీనిని నోట్ చేసుకోండి.`);
     }
 
-    const db = loadDB();
-    const inst = db.institutes.find(i => i.code === instCode);
-    if (!inst) {
-      alert("❌ తప్పు Institute Code!");
-      return;
-    }
-    if (!inst.adminAllowed || !inst.examLive) {
-      alert("⏳ డైరెక్టర్ ఇంకా పరీక్షను ప్రారంభించలేదు (Exam Not Live).");
-      return;
-    }
-
-    const rollNum = parseInt(roll, 10);
-    if (isNaN(rollNum) || rollNum < inst.rollStart || rollNum > inst.rollEnd) {
-      alert(`⛔ మీ రోల్ నంబర్ (${roll}) ఈ ఇన్‌స్టిట్యూట్ జాబితాలో లేదు.`);
-      return;
-    }
-
-    let stu = db.students.find(s => s.instId === inst.id && String(s.roll).trim() === roll);
-
-    if (!stu) {
-      const newPin = generatePin4();
-      const endMs = Date.now() + (180 * 60 * 1000);
-      stu = {
-        instId: inst.id,
-        roll: roll,
-        name: name,
-        phone: phone,
-        personalPin: newPin,
-        status: 'IN_PROGRESS',
-        answersMap: {},
-        examEndTimeMs: endMs,
-        lastIdx: 0
-      };
-      db.students.push(stu);
-      saveDB(db);
-
-      currentStudent = {
-        instId: inst.id,
-        instName: inst.name,
-        roll: roll,
-        name: name,
-        phone: phone,
-        personalPin: newPin
-      };
-      answersMap = {};
-      examEndTimeMs = endMs;
-      currentIdx = 0;
-
-      alert(`🎉 స్వాగతం ${name}!\n\nమీ వ్యక్తిగత లాగిన్ PIN (Personal PIN): ${newPin}\n\nదయచేసి దీనిని నోట్ చేసుకోండి.`);
-    } else {
-      if (!enteredPin || enteredPin !== String(stu.personalPin).trim()) {
-        alert("🔒 తప్పు Personal PIN! మొదటిసారి వచ్చిన 4-అంకెల PIN ఎంటర్ చేయండి లేదా డైరెక్టర్ ద్వారా Reset PIN చేయించుకోండి.");
-        return;
-      }
-
-      currentStudent = {
-        instId: inst.id,
-        instName: inst.name,
-        roll: String(stu.roll).trim(),
-        name: stu.name,
-        phone: stu.phone,
-        personalPin: String(stu.personalPin).trim()
-      };
-
-      if (stu.status === 'SUBMITTED') {
-        answersMap = stu.answersMap ? Object.assign({}, stu.answersMap) : {};
-        examEndTimeMs = stu.examEndTimeMs || Date.now();
-        saveAllStudentState('RESULT');
-        submitExam();
-        return;
-      }
-
-      if (stu.status === 'REEXAM_ALLOWED' || !stu.examEndTimeMs) {
-        stu.status = 'IN_PROGRESS';
-        stu.answersMap = {};
-        stu.examEndTimeMs = Date.now() + (180 * 60 * 1000);
-        stu.lastIdx = 0;
-        saveDB(db);
-      }
-
-      answersMap = stu.answersMap ? Object.assign({}, stu.answersMap) : {};
-      examEndTimeMs = stu.examEndTimeMs;
-      currentIdx = stu.lastIdx || 0;
-    }
-
-    saveAllStudentState('EXAM');
-    enterExamUI(currentIdx);
+    // Save login credentials in localStorage so Refresh automatically fetches latest D1 state!
+    localStorage.setItem(SESSION_COOKIE_KEY, JSON.stringify({ code, roll, name, phone, pin: res.student.personal_pin }));
+    bootStudentFromCloud(res);
   }
 
-  function enterExamUI(startIdx) {
+  function bootStudentFromCloud(res) {
+    const stu = res.student;
+    stuSession = { id: stu.id, instName: res.instName, roll: stu.roll, name: stu.name, pin: stu.personal_pin };
+    answersMap = JSON.parse(stu.answers_json || "{}");
+    examEndTimeMs = Number(stu.exam_end_ms);
+    currentIdx = Number(stu.last_idx || 0);
+
     document.getElementById('roleSwitcher').style.display = 'none';
     document.getElementById('studentLoginCard').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'none';
-    document.getElementById('examScreen').style.display = 'block';
-    document.getElementById('stuPinBanner').innerText = `🔑 Your PIN: ${currentStudent.personalPin}`;
 
-    buildPalette();
-    renderQuestion(startIdx);
-    startTimer();
+    if (stu.status === "SUBMITTED" || Date.now() >= examEndTimeMs) {
+      submitExam(true);
+    } else {
+      document.getElementById('examScreen').style.display = 'block';
+      document.getElementById('stuPinBanner').innerText = `🔑 PIN: ${stu.personal_pin}`;
+      buildPalette();
+      renderQuestion(currentIdx);
+      startTimer();
+    }
   }
 
   function startTimer() {
     clearInterval(timerInterval);
     function tick() {
-      const remainingSec = Math.floor((examEndTimeMs - Date.now()) / 1000);
-      if (remainingSec <= 0) {
+      const rem = Math.floor((examEndTimeMs - Date.now()) / 1000);
+      if (rem <= 0) {
         clearInterval(timerInterval);
-        document.getElementById('timerDisplay').innerText = "⏱️ 00:00:00";
-        submitExam();
+        submitExam(false);
         return;
       }
-      const hrs = String(Math.floor(remainingSec / 3600)).padStart(2, '0');
-      const mins = String(Math.floor((remainingSec % 3600) / 60)).padStart(2, '0');
-      const secs = String(remainingSec % 60).padStart(2, '0');
-      document.getElementById('timerDisplay').innerText = `⏱️ ${hrs}:${mins}:${secs}`;
+      const h = String(Math.floor(rem / 3600)).padStart(2, '0');
+      const m = String(Math.floor((rem % 3600) / 60)).padStart(2, '0');
+      const s = String(rem % 60).padStart(2, '0');
+      document.getElementById('timerDisplay').innerText = `⏱️ ${h}:${m}:${s}`;
     }
     tick();
     timerInterval = setInterval(tick, 1000);
@@ -1004,190 +520,113 @@
   function renderQuestion(idx) {
     currentIdx = idx;
     const q = QUESTIONS[idx];
-    const selectedOpt = answersMap[String(idx)];
-
+    const sel = answersMap[String(idx)];
     document.getElementById('qNumberLabel').innerText = `Question ${q.id} of ${QUESTIONS.length}`;
     document.getElementById('qSectionLabel').innerText = q.section;
     document.getElementById('qTextEn').innerText = q.q_en;
     document.getElementById('qTextTe').innerText = q.q_te;
-
     document.getElementById('secArithBtn').classList.toggle('active', q.section === 'Arithmetic');
     document.getElementById('secReasBtn').classList.toggle('active', q.section === 'Reasoning');
-
-    const optBox = document.getElementById('optionsBox');
-    optBox.innerHTML = q.options.map((opt, i) => `
-      <div class="opt-item ${selectedOpt === i ? 'selected' : ''}" onclick="selectOption(${i})">
-        <div class="opt-circle">${i + 1}</div>
-        <div>${opt}</div>
-      </div>
-    `).join('');
-
+    document.getElementById('optionsBox').innerHTML = q.options.map((opt, i) => `
+      <div class="opt-item ${sel === i ? 'selected' : ''}" onclick="selectOption(${i})">
+        <div class="opt-circle">${i + 1}</div><div>${opt}</div>
+      </div>`).join('');
     updatePalette();
-    saveAllStudentState('EXAM');
   }
 
-  function selectOption(optIdx) {
-    answersMap[String(currentIdx)] = optIdx;
+  async function syncCloudNow() {
+    if (!stuSession) return;
+    document.getElementById('saveIndicator').innerText = "⏳ Saving...";
+    await apiCall({ action: "student_save", studentId: stuSession.id, answersMap, lastIdx: currentIdx });
+    document.getElementById('saveIndicator').innerText = `☁️ Saved (${Object.keys(answersMap).length})`;
+  }
+
+  function selectOption(i) {
+    answersMap[String(currentIdx)] = i;
     renderQuestion(currentIdx);
+    syncCloudNow();
   }
-
   function clearResponse() {
     delete answersMap[String(currentIdx)];
     renderQuestion(currentIdx);
+    syncCloudNow();
   }
-
-  function nextQuestion() {
-    if (currentIdx < QUESTIONS.length - 1) renderQuestion(currentIdx + 1);
-  }
-
-  function prevQuestion() {
-    if (currentIdx > 0) renderQuestion(currentIdx - 1);
-  }
-
-  function jumpToSection(sec) {
-    const idx = QUESTIONS.findIndex(q => q.section === sec);
-    if (idx !== -1) renderQuestion(idx);
-  }
+  function nextQuestion() { if (currentIdx < QUESTIONS.length - 1) { renderQuestion(currentIdx + 1); syncCloudNow(); } }
+  function prevQuestion() { if (currentIdx > 0) { renderQuestion(currentIdx - 1); syncCloudNow(); } }
+  function jumpToSection(sec) { const i = QUESTIONS.findIndex(q => q.section === sec); if (i !== -1) renderQuestion(i); }
 
   function buildPalette() {
-    const grid = document.getElementById('paletteGrid');
-    grid.innerHTML = QUESTIONS.map((q, idx) => `
-      <button class="p-btn" id="pbtn-${idx}" onclick="renderQuestion(${idx})">${q.id}</button>
-    `).join('');
+    document.getElementById('paletteGrid').innerHTML = QUESTIONS.map((q, idx) =>
+      `<button class="p-btn" id="pbtn-${idx}" onclick="renderQuestion(${idx})">${q.id}</button>`).join('');
   }
-
   function updatePalette() {
-    let answered = 0;
+    let ansCount = 0;
     QUESTIONS.forEach((_, idx) => {
-      const btn = document.getElementById(`pbtn-${idx}`);
-      if (!btn) return;
-      btn.className = 'p-btn';
-      if (answersMap[String(idx)] !== undefined && answersMap[String(idx)] !== null) {
-        btn.classList.add('answered');
-        answered++;
-      }
-      if (idx === currentIdx) btn.classList.add('current');
+      const b = document.getElementById(`pbtn-${idx}`);
+      if (!b) return;
+      b.className = 'p-btn';
+      if (answersMap[String(idx)] !== undefined) { b.classList.add('answered'); ansCount++; }
+      if (idx === currentIdx) b.classList.add('current');
     });
-    document.getElementById('answeredCountLabel').innerText = `Answered: ${answered} / ${QUESTIONS.length}`;
+    document.getElementById('answeredCountLabel').innerText = `Answered: ${ansCount} / ${QUESTIONS.length}`;
   }
 
   function confirmSubmit() {
-    const answered = Object.keys(answersMap).length;
-    if (confirm(`మీరు ${QUESTIONS.length} ప్రశ్నలలో ${answered} ప్రశ్నలకు సమాధానాలు ఇచ్చారు. పరీక్ష సబ్మిట్ చేయాలా?`)) {
-      submitExam();
-    }
+    if (confirm(`మీరు ${Object.keys(answersMap).length} ప్రశ్నలకు సమాధానాలు ఇచ్చారు. సబ్మిట్ చేయాలా?`)) submitExam(false);
   }
 
-  function submitExam() {
+  async function submitExam(alreadySubmitted) {
     clearInterval(timerInterval);
-    document.getElementById('roleSwitcher').style.display = 'none';
-    document.getElementById('studentLoginCard').style.display = 'none';
     document.getElementById('examScreen').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'block';
 
-    let correct = 0, wrong = 0;
-    let arith = 0, reas = 0;
-
+    let correct = 0, wrong = 0, arith = 0, reas = 0;
     const revHTML = QUESTIONS.map((q, idx) => {
       const uAns = answersMap[String(idx)];
-      let statusClass = 'rev-skip';
-      let statusBadge = '<span style="color:#64748b; font-weight:700;">⚪ వదిలేసినది (Skipped)</span>';
-
+      let cls = 'rev-skip', badge = '<span style="color:#64748b;">⚪ Skipped</span>';
       if (uAns === q.ans) {
-        correct++;
-        if (q.section === 'Arithmetic') arith++;
-        else reas++;
-        statusClass = 'rev-correct';
-        statusBadge = '<span style="color:#16a34a; font-weight:700;">✅ సరైన సమాధానం (+1)</span>';
-      } else if (uAns !== undefined && uAns !== null) {
-        wrong++;
-        statusClass = 'rev-wrong';
-        statusBadge = '<span style="color:#dc2626; font-weight:700;">❌ తప్పు సమాధానం (0)</span>';
+        correct++; if (q.section === 'Arithmetic') arith++; else reas++;
+        cls = 'rev-correct'; badge = '<span style="color:#16a34a;">✅ Correct (+1)</span>';
+      } else if (uAns !== undefined) {
+        wrong++; cls = 'rev-wrong'; badge = '<span style="color:#dc2626;">❌ Wrong (0)</span>';
       }
-
-      return `
-        <div class="rev-item ${statusClass}">
-          <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
-            <strong>Q.${q.id} [${q.section}]</strong>
-            ${statusBadge}
-          </div>
-          <div style="font-size:0.88rem; font-weight:600; margin-bottom:6px;">${q.q_te}</div>
-          <div style="font-size:0.82rem; color:#334155;">
-            మీ సమాధానం: <strong>${(uAns !== undefined && uAns !== null) ? '(' + (uAns + 1) + ') ' + q.options[uAns] : 'లేరు'}</strong> |
-            సరైన సమాధానం: <strong style="color:#16a34a;">(${q.ans + 1}) ${q.options[q.ans]}</strong>
-          </div>
-        </div>
-      `;
+      return `<div class="rev-item ${cls}">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;"><strong>Q.${q.id} [${q.section}]</strong>${badge}</div>
+        <div style="font-size:0.88rem; margin:5px 0;">${q.q_te}</div>
+        <div style="font-size:0.82rem;">మీ సమాధానం: <strong>${uAns !== undefined ? '('+(uAns+1)+') '+q.options[uAns] : 'లేరు'}</strong> | సరైనది: <strong style="color:#16a34a;">(${q.ans+1}) ${q.options[q.ans]}</strong></div>
+      </div>`;
     }).join('');
 
-    const db = loadDB();
-    const stu = db.students.find(s => s.instId === currentStudent.instId && String(s.roll).trim() === String(currentStudent.roll).trim());
-    if (stu) {
-      stu.arith = arith;
-      stu.reas = reas;
-      stu.total = correct;
-      stu.answersMap = Object.assign({}, answersMap);
-      stu.status = 'SUBMITTED';
-      saveDB(db);
+    if (!alreadySubmitted && stuSession) {
+      await apiCall({ action: "student_submit", studentId: stuSession.id, answersMap, arith, reas, total: correct });
     }
 
-    saveAllStudentState('RESULT');
-
-    document.getElementById('printInstName').innerText = currentStudent.instName;
+    document.getElementById('printInstName').innerText = stuSession.instName;
     document.getElementById('finalScoreText').innerText = `${correct} / ${QUESTIONS.length}`;
-    document.getElementById('candidateMetaText').innerText = `Roll No: ${currentStudent.roll} • ${currentStudent.name} • Personal PIN: ${currentStudent.personalPin}`;
+    document.getElementById('candidateMetaText').innerText = `Roll No: ${stuSession.roll} • ${stuSession.name} • PIN: ${stuSession.pin}`;
     document.getElementById('statCorrect').innerText = correct;
     document.getElementById('statWrong').innerText = wrong;
     document.getElementById('arithScore').innerText = `${arith} / 100`;
     document.getElementById('reasScore').innerText = `${reas} / 100`;
     document.getElementById('reviewContainer').innerHTML = revHTML;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function logoutStudent() {
-    if (!confirm("మీరు ఖచ్చితంగా Logout అవ్వాలనుకుంటున్నారా?")) return;
-    clearStore(SESSION_KEY);
-    currentStudent = null;
-    document.getElementById('resultScreen').style.display = 'none';
-    document.getElementById('examScreen').style.display = 'none';
-    document.getElementById('studentLoginCard').style.display = 'block';
-    document.getElementById('roleSwitcher').style.display = 'grid';
+    if (!confirm("ఖచ్చితంగా Logout అవ్వాలా?")) return;
+    localStorage.removeItem(SESSION_COOKIE_KEY);
+    location.reload();
   }
 
-  // =========================================================
-  // AUTO-RESTORE SESSION IMMEDIATELY ON LOAD / REFRESH
-  // =========================================================
-  (function initRestore() {
-    const rawSess = readStore(SESSION_KEY);
-    if (!rawSess) return;
+  // AUTO-RESTORE FROM CLOUDFLARE D1 ON PAGE REFRESH
+  window.addEventListener("load", async () => {
+    const saved = localStorage.getItem(SESSION_COOKIE_KEY);
+    if (!saved) return;
     try {
-      const sess = JSON.parse(rawSess);
-      if (!sess || !sess.student) return;
-
-      const db = loadDB();
-      const dbStu = db.students.find(s => s.instId === sess.student.instId && String(s.roll).trim() === String(sess.student.roll).trim());
-
-      currentStudent = sess.student;
-      answersMap = (dbStu && dbStu.answersMap && Object.keys(dbStu.answersMap).length > 0)
-        ? Object.assign({}, dbStu.answersMap)
-        : (sess.answersMap ? Object.assign({}, sess.answersMap) : {});
-      examEndTimeMs = (dbStu && dbStu.examEndTimeMs) ? dbStu.examEndTimeMs : (sess.examEndTimeMs || Date.now());
-      currentIdx = (dbStu && typeof dbStu.lastIdx === 'number') ? dbStu.lastIdx : (sess.currentIdx || 0);
-
-      ['student', 'director', 'admin'].forEach(r => {
-        document.getElementById(`view-${r}`).style.display = (r === 'student') ? 'block' : 'none';
-      });
-
-      if (sess.stage === 'RESULT' || (dbStu && dbStu.status === 'SUBMITTED') || Date.now() >= examEndTimeMs) {
-        submitExam();
-      } else {
-        enterExamUI(currentIdx);
-      }
-    } catch (err) {
-      console.error("Restore error:", err);
-    }
-  })();
+      const creds = JSON.parse(saved);
+      const res = await apiCall({ action: "student_login", ...creds });
+      if (res.ok) bootStudentFromCloud(res);
+    } catch (e) {}
+  });
 </script>
-
 </body>
 </html>
